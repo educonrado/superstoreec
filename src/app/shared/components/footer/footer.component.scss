@@ -1,0 +1,29 @@
+.docs-footer {
+  padding: 12px;
+  font-size: 12px;
+  width: 100%;
+  height: auto;
+  display: block;
+  text-align: center;
+}
+.docs-footer-list {
+  padding: 8px;
+  width: 100%;
+}
+.docs-footer-logo {
+}
+.docs-footer-version {
+}
+.docs-footer-copyright {
+}
+
+@media (min-width: 980px) {
+  .docs-footer {
+    display: inline-flex;
+  }
+  .docs-footer-list {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+}
