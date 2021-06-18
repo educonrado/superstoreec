@@ -26,6 +26,10 @@ const routes: Routes = [
     ],
   },
   {
+    path: 'panel',
+    loadChildren: () => import('./modules/panel/panel.module').then((m) => m.PanelModule)
+  },
+  {
     path: '**',
     component: PagenotfoundComponent,
   },

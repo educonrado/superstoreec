@@ -1,5 +1,4 @@
 .docs-footer {
-  padding: 12px;
   font-size: 12px;
   width: 100%;
   height: auto;
@@ -15,6 +14,10 @@
 .docs-footer-version {
 }
 .docs-footer-copyright {
+}
+a:link, a:visited, a:active  {
+  text-decoration: none;
+  color: #fff;
 }
 
 @media (min-width: 980px) {

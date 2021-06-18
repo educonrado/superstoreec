@@ -1,0 +1,68 @@
+<form [formGroup]="profileForm" novalidate (ngSubmit)="onSubmit()">
+  <mat-card class="personal-information-card">
+    <mat-card-header>
+      <mat-card-title>Informaci&oacute;n personal</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              placeholder="Nombre empresa"
+              formControlName="company"
+              required
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              maxlength="15"
+              placeholder="Whatsapp"
+              type="tel"
+              formControlName="phone"
+              required
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Nombre" formControlName="firstName" />
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Apellido" formControlName="lastName" />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <textarea
+              matInput
+              placeholder="Direcci&oacute;n"
+              formControlName="address"
+            ></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+         <img id="img-logo" [src]="urlImage" alt="logo-profile">
+         <input type="file">
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit" [disabled]="profileForm.invalid">Guardar</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

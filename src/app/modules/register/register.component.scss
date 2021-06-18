@@ -1,7 +1,30 @@
 .contenedor-registro {
-  margin: 20px;
-  text-align: center;
-}
+    margin: 20px;
+    text-align: center;
+    .icon-card {
+      font-size: 100px;
+      width: 100px;
+      height: 100px;
+    }
+    .campos {
+      display: flex;
+      justify-content: center;
+      .botones {
+        text-align: center;
+      }
+      .full-width {
+        width: 100%;
+      }
+      .alerta {
+        text-align: right;
+      }
+      .text-action {
+        margin: 2rem;
+      }
+    }
+  }
+  
+
 .container-social {
     display: inline-block;
     text-align: center;

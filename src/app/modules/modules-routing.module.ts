@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
+import { NavigationComponent } from './panel/components/navigation/navigation.component';
 import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
@@ -11,6 +12,11 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
+  },
+  {
+    path: 'panel',
+    component: NavigationComponent,
+    loadChildren: () => import('./panel/panel.module').then((m) => m.PanelModule)
   }
 ];
 
