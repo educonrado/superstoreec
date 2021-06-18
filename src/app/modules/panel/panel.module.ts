@@ -13,6 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ProductFormComponent } from './components/product-form/product-form.component';
 
 
 
@@ -21,7 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     NavigationComponent, 
     DashboardComponent, 
     ProductsComponent, 
-    ProfileComponent
+    ProfileComponent, ProductFormComponent
   ],
   imports: [
     CommonModule,
