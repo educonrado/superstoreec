@@ -7,13 +7,9 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@modules/material/material.module';
 import { PanelRoutingModule } from './panel-routing.module';
 import { ProfileComponent } from './components/profile/profile.component';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSelectModule } from '@angular/material/select';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProductFormComponent } from './components/product-form/product-form.component';
+import { SharedModule } from '@shared/shared.module';
 
 
 
@@ -29,12 +25,8 @@ import { ProductFormComponent } from './components/product-form/product-form.com
     MaterialModule,
     RouterModule,
     PanelRoutingModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSelectModule,
-    MatRadioModule,
-    MatCardModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ]
 })
 export class PanelModule { }

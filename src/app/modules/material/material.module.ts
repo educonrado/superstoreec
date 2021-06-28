@@ -14,11 +14,15 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule, 
+    CommonModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
@@ -36,7 +40,11 @@ import { MatTableModule } from '@angular/material/table';
     MatMenuModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatSnackBarModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatDialogModule,
   ],
   exports: [
     MatToolbarModule,
@@ -56,7 +64,11 @@ import { MatTableModule } from '@angular/material/table';
     MatMenuModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatSnackBarModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatDialogModule,
   ],
 })
 export class MaterialModule {}

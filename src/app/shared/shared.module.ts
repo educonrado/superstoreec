@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@modules/material/material.module';
 
 import * as fromComponents from './components';
-import { SkeletonComponent } from './components/skeleton/skeleton.component';
 
 @NgModule({
   imports: [

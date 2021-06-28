@@ -29,8 +29,8 @@
           <mat-icon color="secondary">edit</mat-icon>
         </a>
         <a mat-icon-button >
-          <mat-icon color="warn">delete</mat-icon>
-        </a>
+          <mat-icon color="warn" (click)="confirmationDelete(row.id)">delete</mat-icon>
+        </a> 
         </td>
       </ng-container>
 
