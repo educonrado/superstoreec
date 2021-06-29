@@ -6,6 +6,7 @@ import { HeaderComponent } from './header/header.component';
 import { NotificationComponent } from './notification/notification.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { SkeletonComponent } from './skeleton/skeleton.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 export const components: any[] = [
   HeaderComponent,
@@ -16,4 +17,5 @@ export const components: any[] = [
   SkeletonComponent,
   NotificationComponent,
   DialogComponent,
+  SpinnerComponent
 ];

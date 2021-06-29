@@ -1,78 +1,75 @@
 .contenedor-registro {
-    margin: 20px;
-    text-align: center;
-    .icon-card {
-      font-size: 100px;
-      width: 100px;
-      height: 100px;
+  margin: 20px;
+  text-align: center;
+  .icon-card {
+    font-size: 100px;
+    width: 100px;
+    height: 100px;
+  }
+  .campos {
+    display: flex;
+    justify-content: center;
+    .botones {
+      text-align: center;
     }
-    .campos {
-      display: flex;
-      justify-content: center;
-      .botones {
-        text-align: center;
-      }
-      .full-width {
-        width: 100%;
-      }
-      .alerta {
-        text-align: right;
-      }
-      .text-action {
-        margin: 2rem;
+    .full-width {
+      width: 100%;
+    }
+    .alerta {
+      text-align: right;
+    }
+    .text-action {
+      margin: 2rem;
+    }
+  }
+}
+
+.container-social {
+  display: inline-block;
+  text-align: center;
+  .box-google,
+  .box-facebook {
+    a {
+      text-decoration: none;
+      color: #000;
+    }
+    .grp-rs {
+      .icon-google,
+      .icon-facebook {
+        svg {
+          margin: 0;
+          padding: 0;
+          width: 50px;
+          height: 50px;
+        }
       }
     }
   }
-  
-
-.container-social {
-    display: inline-block;
-    text-align: center;
-    .box-google, .box-facebook {
-        a{
-            text-decoration: none;
-            color: #000;
-        }
-        .grp-rs {
-            .icon-google, .icon-facebook{
-                
-                svg {
-                    margin: 0;
-                    padding: 0;
-                    width: 50px;
-                    height: 50px;
-                }
-            }
-        }
+  .box-facebook {
+  }
+  .box-google {
+  }
+  .grp-rs {
+    .icon-facebook {
     }
-    .box-facebook {
-        
+    .icon-google {
     }
-    .box-google {
-        
+    .lbl-facebook {
     }
-    .grp-rs {
-        .icon-facebook {
-            
-        }
-        .icon-google {
-        }
-        .lbl-facebook {
-        }
-        .lbl-google {
-        }
+    .lbl-google {
     }
+  }
 }
 
 .botones {
 }
 .full-width {
-    width: 100%;
+  width: 100%;
 }
 .registro-card {
-
 }
 
 .alerta {
-    text-align: right;
-  }
+  text-align: right;
+}
+

@@ -8,6 +8,12 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { LayoutComponent } from './layout/layout.component';
+// Angular fire
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { environment } from 'environments/environment';
+
 
 @NgModule({
   declarations: [AppComponent, LayoutComponent],
@@ -17,6 +23,9 @@ import { LayoutComponent } from './layout/layout.component';
     BrowserAnimationsModule,
     CoreModule,
     SharedModule,
+    AngularFireAuthModule,
+    AngularFireStorageModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
   providers: [
     {

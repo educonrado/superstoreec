@@ -25,10 +25,10 @@ export class ProductsComponent implements OnInit {
     const dialogRef = this.matDialog.open(DialogComponent, {
       width: '250px',
       data: {
-        title: Appsettings.PRODUCT,
-        body: Appsettings.PRODUCT_DELETE,
-        btn1: Appsettings.CANCEL,
-        btn2: Appsettings.DELETE,
+        title: Appsettings.MESSAGE_PRODUCT,
+        body: Appsettings.MESSAGE_PRODUCT_DELETE,
+        btn1: Appsettings.BTN_CANCEL,
+        btn2: Appsettings.BTN_DELETE,
       }
     });
     dialogRef.afterClosed().subscribe((result) => {

@@ -5,6 +5,9 @@
   <div class="campos">
     <form [formGroup]="formRegistro" (ngSubmit)="registrar($event)">
       <mat-card class="registro-card">
+        <mat-card-header>
+          <mat-card-title>Crear una cuenta de SuperStoreEc</mat-card-title>
+        </mat-card-header>
         <mat-card-content>
           <mat-form-field class="full-width">
             <mat-label><mat-icon>mail</mat-icon> Email</mat-label>
@@ -46,7 +49,7 @@
               class="alerta"
               *ngIf="formRegistro.controls['password'].hasError('minlength')"
             >
-              La loguitud del campo debe ser mayor
+              La loguitud del campo debe ser mayor a 6 caracteres
             </mat-error>
           </mat-form-field>
           <div class="container-social">
@@ -86,13 +89,15 @@
             mat-raised-button
             type="submit"
             color="primary"
-            name="Login"
-            aria-label="Login"
+            name="Registrar"
+            aria-label="Registrar"
+            [disabled]="formRegistro.invalid"
           >
-            Crear
+            Registrar
           </button>
         </mat-card-actions>
       </mat-card>
     </form>
   </div>
 </div>
+<app-spinner [showSpinner]="showSpinner"></app-spinner>
