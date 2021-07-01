@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from '@core/services/auth/auth.service';
 import { Appsettings } from '@data/constants/appsettings';
+import { MemberType, Store } from '@data/model/store';
 import { NotificationComponent } from '@shared/components/notification/notification.component';
 
 @Component({
@@ -15,6 +16,25 @@ import { NotificationComponent } from '@shared/components/notification/notificat
 export class RegisterComponent implements OnInit {
   formRegistro: FormGroup = new FormGroup({});
   showSpinner = false;
+  store: Store = {
+    id: '1',
+    manager: {
+      uid: '',
+      name: 'string',
+      lastName: 'string',
+      email: 'string',
+      emailVerified: true,
+      password: 'string',
+      phoneNumber: 'string',
+      photo: 'string',
+    },
+    category: 'cellphones',
+    messageClients: 'Holaaaa',
+    phone: '593995000585',
+    nameStore: 'Mi',
+    products: [],
+    memberType: MemberType.FREE,
+  };
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -24,7 +44,10 @@ export class RegisterComponent implements OnInit {
     this.createForm();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.store);
+    
+  }
 
   registrar(event: Event): void {
     event.preventDefault();
@@ -43,7 +66,6 @@ export class RegisterComponent implements OnInit {
           this.formRegistro.reset();
           this.showSpinner = false;
         });
-      
     }
   }
 

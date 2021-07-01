@@ -10,6 +10,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { SharedModule } from '@shared/shared.module';
+import { AsistentComponent } from './components/asistent/asistent.component';
 
 
 
@@ -18,7 +19,7 @@ import { SharedModule } from '@shared/shared.module';
     NavigationComponent, 
     DashboardComponent, 
     ProductsComponent, 
-    ProfileComponent, ProductFormComponent
+    ProfileComponent, ProductFormComponent, AsistentComponent
   ],
   imports: [
     CommonModule,

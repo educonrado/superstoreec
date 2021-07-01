@@ -10,10 +10,9 @@ import { NotificationComponent } from '@shared/components/notification/notificat
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-
   formLogin: FormGroup = new FormGroup({});
   showSpinner = false;
   uidUser: any;
@@ -37,10 +36,7 @@ export class LoginComponent implements OnInit {
       this.authService
         .login(value.email, value.password)
         .then((user: any) => {
-          this.authService.getUid().subscribe(user=>{
-            this.uidUser = user?.uid;            
-          });
-          this.router.navigate([Appsettings.RUTA_ADMIN, this.uidUser]);
+          this.router.navigate([Appsettings.RUTA_ADMIN, 'as']);
           this.showSpinner = false;
         })
         .catch(() => {
@@ -49,13 +45,35 @@ export class LoginComponent implements OnInit {
           this.showSpinner = false;
         });
     }
-    
   }
+
+  loginGoogle(): void {
+    // Service auth
+    this.showSpinner = true;
+    try {
+      this.authService.loginGoogle().then(() => {
+        this.router.navigate([Appsettings.RUTA_ADMIN, this.uidUser]);
+        this.showSpinner = false;
+      });
+    } catch (error) {
+      this.notificationError(Appsettings.MESSAGE_ERROR_LOGIN);
+      this.formLogin.reset();
+      this.showSpinner = false;
+    }
+  }
+  loginMicrosoft(): void {
+    try {
+      this.authService.loginMicrosoft();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  loginFacebook(): void {}
 
   private notificationError(message: string): void {
     this.matSnackBar.openFromComponent(NotificationComponent, {
       duration: Appsettings.TIME_NOTIFICACION * 1000,
-      data: message
+      data: message,
     });
   }
 
@@ -65,5 +83,4 @@ export class LoginComponent implements OnInit {
       password: [null, [Validators.required]],
     });
   }
-
 }

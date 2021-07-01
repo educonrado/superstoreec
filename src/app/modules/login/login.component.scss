@@ -23,3 +23,20 @@
     }
   }
 }
+.btn-google,
+.btn-microsoft,
+.btn-facebook {
+  width: 100%;
+  color: #fff;
+  border-radius: 5px;
+}
+.btn-google {
+  background-color: #dd4b36;
+}
+.btn-microsoft {
+  color: #000;
+}
+
+.btn-facebook {
+  background-color: #3b5998;
+}

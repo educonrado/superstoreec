@@ -68,4 +68,17 @@
     </form>
   </div>
 </div>
+<mat-card class="login-card">
+  <mat-card-content>
+    <button class="btn btn-lg btn-google" (click)="loginGoogle()">
+      Google
+    </button>
+    <button class="btn btn-lg btn-microsoft" (click)="loginMicrosoft()">
+      Microsoft
+    </button>
+    <button class="btn btn-lg btn-facebook" (click)="loginFacebook()">
+      Facebook
+    </button>
+  </mat-card-content>
+</mat-card>
 <app-spinner [showSpinner]="showSpinner"></app-spinner>
