@@ -1,6 +1,6 @@
 export class Appsettings {
     // Tiempo
-    public static TIME_NOTIFICACION = 5;
+    public static TIME_NOTIFICACION = 10;
     // Mensajes
     public static MESSAGE_DELETE = 'El producto fue eliminado correctamente';
     public static MESSAGE_PRODUCT = 'Producto';
@@ -14,5 +14,7 @@ export class Appsettings {
     // Rutas
     public static RUTA_LOGIN = '/user/login';
     public static RUTA_ADMIN = '/panel';
+    // Path Realtime firebase
+    public static PATH_CLIENTS = '/clients';
 
 }

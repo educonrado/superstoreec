@@ -24,42 +24,7 @@
   }
 }
 
-.container-social {
-  display: inline-block;
-  text-align: center;
-  .box-google,
-  .box-facebook {
-    a {
-      text-decoration: none;
-      color: #000;
-    }
-    .grp-rs {
-      .icon-google,
-      .icon-facebook {
-        svg {
-          margin: 0;
-          padding: 0;
-          width: 50px;
-          height: 50px;
-        }
-      }
-    }
-  }
-  .box-facebook {
-  }
-  .box-google {
-  }
-  .grp-rs {
-    .icon-facebook {
-    }
-    .icon-google {
-    }
-    .lbl-facebook {
-    }
-    .lbl-google {
-    }
-  }
-}
+
 
 .botones {
 }
@@ -73,6 +38,6 @@
   text-align: right;
 }
 
-.header-card {
+.header-card, .links {
   margin: 10px 0 20px;
 }

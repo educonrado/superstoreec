@@ -1,6 +1,6 @@
 <div class="contenedor-registro">
   <div class="usuario">
-    <mat-icon style="font-size: 100px">how_to_reg</mat-icon>
+    <mat-icon class="icon-card">how_to_reg</mat-icon>
   </div>
   <div class="campos">
     <form [formGroup]="formRegistro" (ngSubmit)="registrar($event)">
@@ -52,7 +52,7 @@
               La loguitud del campo debe ser mayor a 6 caracteres
             </mat-error>
           </mat-form-field>
-          <div class="container-social">
+          <div class="container-social" *ngIf="false">
             <div class="box-google">
               <a href="#">
                 <div class="grp-rs">
@@ -71,33 +71,28 @@
                   </div>
                   <div class="lbl-facebook">Registrar con <b>Facebook</b></div>
                 </div>
+                
               </a>
             </div>
           </div>
         </mat-card-content>
         <mat-card-actions class="botones">
           <button
-            mat-raised-button
-            color="secondary"
-            name="Regresar"
-            aria-label="Regresar"
-            routerLink="/user/login"
+          mat-raised-button
+          type="submit"
+          color="primary"
+          name="Registrar"
+          aria-label="Registrar"
           >
-            Cancelar
-          </button>
-          <button
-            mat-raised-button
-            type="submit"
-            color="primary"
-            name="Registrar"
-            aria-label="Registrar"
-            [disabled]="formRegistro.invalid"
-          >
-            Registrar
-          </button>
-        </mat-card-actions>
-      </mat-card>
-    </form>
+          Registrar
+        </button>
+      </mat-card-actions>
+    </mat-card>
+    <div class="links">
+    <small>¿Ya tienes una cuenta? <a  routerLink="/user/login"> Iniciar sesi&oacute;n </a></small>
+    
+  </div>
+  </form>
   </div>
 </div>
 <app-spinner [showSpinner]="showSpinner"></app-spinner>

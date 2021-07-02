@@ -10,33 +10,21 @@ export class AuthService {
   constructor(private angularFireAuth: AngularFireAuth) {}
 
   async createUser(email: string, password: string): Promise<any> {
-    try {
-      return await this.angularFireAuth.createUserWithEmailAndPassword(
-        email,
-        password
-      );
-    } catch (error) {
-      console.log('Error encontrado: ' + error);
-    }
+    return await this.angularFireAuth.createUserWithEmailAndPassword(
+      email,
+      password
+    );
   }
 
   async login(email: string, password: string): Promise<any> {
-    try {
-      return await this.angularFireAuth.signInWithEmailAndPassword(
-        email,
-        password
-      );
-    } catch (error) {
-      console.log('Error encontrado: ' + error);
-    }
+    return await this.angularFireAuth.signInWithEmailAndPassword(
+      email,
+      password
+    );
   }
 
   async logout(): Promise<any> {
-    try {
-      await this.angularFireAuth.signOut();
-    } catch (error) {
-      console.log(error);
-    }
+    await this.angularFireAuth.signOut();
   }
 
   hasUser(): any {
@@ -52,32 +40,21 @@ export class AuthService {
   }
 
   loginGoogle(): any {
-    try {
-      return this.angularFireAuth.signInWithPopup(
-        new firebase.auth.GoogleAuthProvider()
-      );
-    } catch (error) {
-      console.log(error);
-    }
+    return this.angularFireAuth.signInWithPopup(
+      new firebase.auth.GoogleAuthProvider()
+    );
   }
-  async loginMicrosoft(): Promise<any> {
-    try {
-      var provider = new firebase.auth.OAuthProvider('microsoft.com');
 
-      return this.angularFireAuth.signInWithPopup(
-        new firebase.auth.OAuthProvider('microsoft.com')
-      );
-    } catch (error) {
-      console.log(error);
-    }
+  async loginMicrosoft(): Promise<any> {
+    var provider = new firebase.auth.OAuthProvider('microsoft.com');
+
+    return this.angularFireAuth.signInWithPopup(
+      new firebase.auth.OAuthProvider('microsoft.com')
+    );
   }
   async loginFacebook(): Promise<any> {
-    try {
-      return this.angularFireAuth.signInWithPopup(
-        new firebase.auth.GoogleAuthProvider()
-      );
-    } catch (error) {
-      console.log(error);
-    }
+    return this.angularFireAuth.signInWithPopup(
+      new firebase.auth.GoogleAuthProvider()
+    );
   }
 }

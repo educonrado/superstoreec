@@ -1,11 +1,11 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from '@core/services/auth/auth.service';
+import { ClientsService } from '@core/services/clients/clients.service';
 import { Appsettings } from '@data/constants/appsettings';
-import { MemberType, Store } from '@data/model/store';
+import User from '@data/model/user';
 import { NotificationComponent } from '@shared/components/notification/notification.component';
 
 @Component({
@@ -16,50 +16,32 @@ import { NotificationComponent } from '@shared/components/notification/notificat
 export class RegisterComponent implements OnInit {
   formRegistro: FormGroup = new FormGroup({});
   showSpinner = false;
-  store: Store = {
-    id: '1',
-    manager: {
-      uid: '',
-      name: 'string',
-      lastName: 'string',
-      email: 'string',
-      emailVerified: true,
-      password: 'string',
-      phoneNumber: 'string',
-      photo: 'string',
-    },
-    category: 'cellphones',
-    messageClients: 'Holaaaa',
-    phone: '593995000585',
-    nameStore: 'Mi',
-    products: [],
-    memberType: MemberType.FREE,
-  };
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private authService: AuthService,
-    private matSnackBar: MatSnackBar
+    private matSnackBar: MatSnackBar,
+    private clientService: ClientsService
   ) {
     this.createForm();
   }
 
   ngOnInit(): void {
-    console.log(this.store);
-    
   }
 
   registrar(event: Event): void {
     event.preventDefault();
-    this.showSpinner = true;
     if (this.formRegistro.valid) {
+      this.showSpinner = true;
       const value = this.formRegistro.value;
       this.authService
         .createUser(value.email, value.password)
-        .then(() => {
+        .then((userCredential) => {
+          const user = userCredential.user;
           this.router.navigate([Appsettings.RUTA_LOGIN]);
           this.notification(Appsettings.MESSAGE_SUCCESS_REGISTER);
           this.showSpinner = false;
+          this.createNewClient(user, value.email);
         })
         .catch((err: any) => {
           this.notification(err.message);
@@ -67,6 +49,18 @@ export class RegisterComponent implements OnInit {
           this.showSpinner = false;
         });
     }
+  }
+  private createNewClient(user: any, email: string): void {
+    user: User;
+    user.email = user.email;
+    user.emailVerified = user.emailVerified;
+    user.uid = user.uid;
+    user.name = user.displayName;
+    user.phoneNumber = user.phoneNumber;
+    user.photo = user.photoURL;
+    this.clientService.createClient(user).then((userRegistered: any) => {
+      console.log('Usuario creado correctamente');
+    });
   }
 
   private notification(message: string): void {

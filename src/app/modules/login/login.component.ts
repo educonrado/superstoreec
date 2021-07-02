@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from '@core/services/auth/auth.service';
+import { ClientsService } from '@core/services/clients/clients.service';
 import { Appsettings } from '@data/constants/appsettings';
+import User from '@data/model/user';
 import { NotificationComponent } from '@shared/components/notification/notification.component';
 
 @Component({
@@ -15,12 +17,14 @@ import { NotificationComponent } from '@shared/components/notification/notificat
 export class LoginComponent implements OnInit {
   formLogin: FormGroup = new FormGroup({});
   showSpinner = false;
-  uidUser: any;
+  userTmp: User = new User();
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private authService: AuthService,
-    private matSnackBar: MatSnackBar
+    private matSnackBar: MatSnackBar,
+    private clientService: ClientsService,
+    private ngZone: NgZone
   ) {
     this.createForm();
   }
@@ -30,8 +34,8 @@ export class LoginComponent implements OnInit {
   login(event: Event): void {
     // Evita que la página recargue cuando realiza submit
     event.preventDefault();
-    this.showSpinner = true;
     if (this.formLogin.valid) {
+      this.showSpinner = true;
       const value = this.formLogin.value;
       this.authService
         .login(value.email, value.password)
@@ -49,17 +53,40 @@ export class LoginComponent implements OnInit {
 
   loginGoogle(): void {
     // Service auth
-    this.showSpinner = true;
     try {
-      this.authService.loginGoogle().then(() => {
-        this.router.navigate([Appsettings.RUTA_ADMIN, this.uidUser]);
-        this.showSpinner = false;
+      this.showSpinner = true;
+      this.authService.loginGoogle().then((userCredential: any) => {
+        const user = userCredential.user;
+        this.ngZone.run(()=>{
+          this.router.navigate([Appsettings.RUTA_ADMIN, user.uid]);
+          this.createNewClient(user);
+          this.showSpinner = false;
+        });
       });
     } catch (error) {
       this.notificationError(Appsettings.MESSAGE_ERROR_LOGIN);
       this.formLogin.reset();
       this.showSpinner = false;
     }
+  }
+
+  private createNewClient(user: any): void {
+    this.authService.getCurrentUser().then( (user: any) =>{
+      console.log(user.uid);
+ 
+    }
+
+    );/*
+    this.userTmp.email = user.email;
+    this.userTmp.emailVerified = user.emailVerified;
+    this.userTmp.uid = user.uid;
+    this.userTmp.name = user.displayName;
+    this.userTmp.phoneNumber = user.phoneNumber;
+    this.userTmp.photo = user.photoURL;
+    
+    this.clientService.createClient(this.userTmp).then((userRegistered: any) => {
+      console.log('Usuario creado correctamente'+user);
+    });*/
   }
   loginMicrosoft(): void {
     try {

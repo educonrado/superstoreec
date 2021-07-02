@@ -12,6 +12,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from 'environments/environment';
 
 
@@ -25,6 +26,7 @@ import { environment } from 'environments/environment';
     SharedModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
+    AngularFirestoreModule,
     AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
   providers: [
