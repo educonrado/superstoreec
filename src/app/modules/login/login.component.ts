@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
       this.authService
         .login(value.email, value.password)
         .then((user: any) => {
-          this.router.navigate([Appsettings.RUTA_ADMIN, 'as']);
+          this.router.navigate([Appsettings.RUTA_ADMIN]);
           this.showSpinner = false;
         })
         .catch(() => {
@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
       this.authService.loginGoogle().then((userCredential: any) => {
         const user = userCredential.user;
         this.ngZone.run(()=>{
-          this.router.navigate([Appsettings.RUTA_ADMIN, user.uid]);
+          this.router.navigate([Appsettings.RUTA_ADMIN]);
           this.createNewClient(user);
           this.showSpinner = false;
         });

@@ -27,7 +27,7 @@ const routes: Routes = [
     ],
   },
   {
-    path: 'panel/:id',
+    path: 'panel',
     canActivate: [AdminGuard],
     loadChildren: () => import('./modules/panel/panel.module').then((m) => m.PanelModule)
   },

@@ -12,10 +12,6 @@ const routes: Routes = [
     component: NavigationComponent,
     children: [
       {
-        path: '',
-        component: ProductsComponent
-      },
-      {
         path: 'products',
         component: ProductsComponent
       },

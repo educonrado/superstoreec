@@ -14,7 +14,7 @@ const routes: Routes = [
     component: RegisterComponent
   },
   {
-    path: 'panel',
+    path: 'panel/products',
     component: NavigationComponent,
     loadChildren: () => import('./panel/panel.module').then((m) => m.PanelModule)
   }

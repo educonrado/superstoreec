@@ -7,7 +7,6 @@ import { Appsettings } from '@data/constants/appsettings';
 import User from '@data/model/user';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,8 +14,7 @@ import { AuthService } from '../auth/auth.service';
 export class ClientsService {
   clientsRef: AngularFirestoreCollection<User>;
   constructor(
-    private angularFirestore: AngularFirestore,
-    private authService: AuthService
+    private angularFirestore: AngularFirestore
   ) {
     this.clientsRef = this.angularFirestore.collection(
       Appsettings.PATH_CLIENTS
