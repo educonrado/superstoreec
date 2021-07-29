@@ -1,34 +1,57 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ControlContainer } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '@core/services/auth/auth.service';
+import { ClientsService } from '@core/services/clients/clients.service';
+import { StoreService } from '@core/services/store/store.service';
 import { Appsettings } from '@data/constants/appsettings';
 import { EXAMPLE_PRODUCTS } from '@data/mocks/products-mock';
 import { BodyDialog } from '@data/model/body-dialog';
 import { Product } from '@data/model/product';
+import { Store } from '@data/model/store';
+import User from '@data/model/user';
 import { DialogComponent } from '@shared/components/dialog/dialog.component';
 import { NotificationComponent } from '@shared/components/notification/notification.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit, OnDestroy {
   products: Product[] = [];
   displayedColumns = ['image', 'title', 'price', 'action'];
+
   constructor(
     private matSnackBar: MatSnackBar,
     private matDialog: MatDialog,
-    private authService: AuthService
+    private authService: AuthService,
+    private storeService: StoreService
   ) {
-    this.authService.getCurrentUser().then( (user: any) =>{
+    this.validateStore();
+  }
+
+  ngOnInit(): void {
+    this.products = EXAMPLE_PRODUCTS;
+    console.log(this.storeService.getStore("LX0ld88IdTSAM2onP7ZSHPg6Pmf1"));
+  }
+
+  private validateStore(): void {
+    this.authService.getCurrentUser().then((user: any) => {
       console.log(user.uid);
- 
     });
   }
-  ngOnInit(): void {
-    this.products = EXAMPLE_PRODUCTS;    
+
+  crearStore() {
+    const store: Store = {
+      id: 'string',
+      nameStore: 'string',
+    };
+
+    const uid = 'LX0ld88IdTSAM2onP7ZSHPg6Pmf1';
+    this.storeService.createStore(store, uid);
   }
 
   confirmationDelete(id: string): void {
@@ -55,5 +78,9 @@ export class ProductsComponent implements OnInit {
       duration: Appsettings.TIME_NOTIFICACION * 1000,
       data: message,
     });
+  }
+
+  ngOnDestroy(): void {
+    console.log('Destroy');
   }
 }

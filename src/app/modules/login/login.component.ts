@@ -17,13 +17,11 @@ import { NotificationComponent } from '@shared/components/notification/notificat
 export class LoginComponent implements OnInit {
   formLogin: FormGroup = new FormGroup({});
   showSpinner = false;
-  userTmp: User = new User();
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private authService: AuthService,
     private matSnackBar: MatSnackBar,
-    private clientService: ClientsService,
     private ngZone: NgZone
   ) {
     this.createForm();
@@ -35,59 +33,40 @@ export class LoginComponent implements OnInit {
     // Evita que la página recargue cuando realiza submit
     event.preventDefault();
     if (this.formLogin.valid) {
-      this.showSpinner = true;
+      this.mostrarSpinner();
       const value = this.formLogin.value;
       this.authService
         .login(value.email, value.password)
-        .then((user: any) => {
+        .then(() => {
           this.router.navigate([Appsettings.RUTA_ADMIN]);
-          this.showSpinner = false;
+          this.ocultarSpinner();
         })
         .catch(() => {
           this.notificationError(Appsettings.MESSAGE_ERROR_LOGIN);
           this.formLogin.reset();
-          this.showSpinner = false;
-        });
+          this.ocultarSpinner();
+        })
+        .finally(() => this.ocultarSpinner());
     }
   }
 
   loginGoogle(): void {
     // Service auth
     try {
-      this.showSpinner = true;
-      this.authService.loginGoogle().then((userCredential: any) => {
-        const user = userCredential.user;
-        this.ngZone.run(()=>{
+      this.mostrarSpinner();
+      this.authService.loginGoogle().then(() => {
+        this.ngZone.run(() => {
           this.router.navigate([Appsettings.RUTA_ADMIN]);
-          this.createNewClient(user);
-          this.showSpinner = false;
+          this.ocultarSpinner();
         });
       });
     } catch (error) {
       this.notificationError(Appsettings.MESSAGE_ERROR_LOGIN);
       this.formLogin.reset();
-      this.showSpinner = false;
+      this.ocultarSpinner();
     }
   }
 
-  private createNewClient(user: any): void {
-    this.authService.getCurrentUser().then( (user: any) =>{
-      console.log(user.uid);
- 
-    }
-
-    );/*
-    this.userTmp.email = user.email;
-    this.userTmp.emailVerified = user.emailVerified;
-    this.userTmp.uid = user.uid;
-    this.userTmp.name = user.displayName;
-    this.userTmp.phoneNumber = user.phoneNumber;
-    this.userTmp.photo = user.photoURL;
-    
-    this.clientService.createClient(this.userTmp).then((userRegistered: any) => {
-      console.log('Usuario creado correctamente'+user);
-    });*/
-  }
   loginMicrosoft(): void {
     try {
       this.authService.loginMicrosoft();
@@ -109,5 +88,13 @@ export class LoginComponent implements OnInit {
       email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required]],
     });
+  }
+
+  private ocultarSpinner(): boolean {
+    return (this.showSpinner = false);
+  }
+
+  private mostrarSpinner(): boolean {
+    return (this.showSpinner = true);
   }
 }

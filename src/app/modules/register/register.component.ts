@@ -41,7 +41,6 @@ export class RegisterComponent implements OnInit {
           this.router.navigate([Appsettings.RUTA_LOGIN]);
           this.notification(Appsettings.MESSAGE_SUCCESS_REGISTER);
           this.showSpinner = false;
-          this.createNewClient(user, value.email);
         })
         .catch((err: any) => {
           this.notification(err.message);
@@ -49,18 +48,6 @@ export class RegisterComponent implements OnInit {
           this.showSpinner = false;
         });
     }
-  }
-  private createNewClient(user: any, email: string): void {
-    user: User;
-    user.email = user.email;
-    user.emailVerified = user.emailVerified;
-    user.uid = user.uid;
-    user.name = user.displayName;
-    user.phoneNumber = user.phoneNumber;
-    user.photo = user.photoURL;
-    this.clientService.createClient(user).then((userRegistered: any) => {
-      console.log('Usuario creado correctamente');
-    });
   }
 
   private notification(message: string): void {

@@ -15,6 +15,6 @@ export class Appsettings {
     public static RUTA_LOGIN = '/user/login';
     public static RUTA_ADMIN = '/panel/products';
     // Path Realtime firebase
-    public static PATH_CLIENTS = '/clients';
+    public static PATH_STORES = '/stores';
 
 }
