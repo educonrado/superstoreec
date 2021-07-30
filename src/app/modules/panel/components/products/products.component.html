@@ -1,8 +1,9 @@
 <div class="assistent" >
   <!--*ngIf="true | async else productos"-->
   <button (click)="crearStore();">Crear prueba store</button>
-  <ul>
-    <li>  </li>
+  <ul *ngFor="let store of stores$ | async">
+    <li> {{store.id}} </li>
+    <li> {{store.nameStore}} </li>
   </ul>
 </div>
 <ng-template #productos>

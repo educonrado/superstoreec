@@ -24,6 +24,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
   products: Product[] = [];
   displayedColumns = ['image', 'title', 'price', 'action'];
 
+  stores$ = this.storeService.stores;
+
   constructor(
     private matSnackBar: MatSnackBar,
     private matDialog: MatDialog,
@@ -46,12 +48,12 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   crearStore() {
     const store: Store = {
-      id: 'string',
-      nameStore: 'string',
+      id: 'edu',
+      nameStore: 'studio',
     };
 
-    const uid = 'LX0ld88IdTSAM2onP7ZSHPg6Pmf1';
-    this.storeService.createStore(store, uid);
+    const nameStore = 'edu-studio';
+    this.storeService.createStore(store, nameStore);
   }
 
   confirmationDelete(id: string): void {
