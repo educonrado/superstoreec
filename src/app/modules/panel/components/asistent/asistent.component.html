@@ -1,71 +1,152 @@
 <h2 mat-dialog-title>Asistente SuperStoreEc</h2>
-<mat-dialog-content class="mat-typography">
-  <h3>Configuremos tu nueva tienda</h3>
-  <p>
-    <mat-stepper orientation="vertical" linear="true" #stepper>
-      <mat-step [stepControl]="firstFormGroup">
-        <form [formGroup]="firstFormGroup">
-          <ng-template matStepLabel>Nombre de tu tienda</ng-template>
-          <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Nombre del negocio/ Marca</mat-label>
-            <input
-              matInput
-              placeholder="Nombre del negocio"
-              formControlName="nameStore"
-              required
-            />
-          </mat-form-field>
-          <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Nombre página web</mat-label>
-            <input
-              matInput
-              placeholder="superstoreec.app/NombreDelNegocio"
-              formControlName="nameShortStore"
-              required
-            />
-          </mat-form-field>
-          <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Descripci&oacute;n</mat-label>
-            <textarea
-              name="descripcion"
-              id="descripcion"
-              matInput
-              placeholder="Descripci&oacute;n"
-              formControlName="descriptionStore"
-            ></textarea>
-          </mat-form-field>
-          <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Logo</mat-label>
-            <input
-              matInput
-              formControlName="imageStore"
-              required
-            />
-          </mat-form-field>
-          <div>
-            <button mat-button matStepperNext>Siguiente</button>
-          </div>
-        </form>
-      </mat-step>
-      <mat-step [stepControl]="secondFormGroup">
-        <form [formGroup]="secondFormGroup">
-          <ng-template matStepLabel>Contacto propietario</ng-template>
-          <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Whatsapp</mat-label>
-            <input
-              matInput
-              type="tel"
-              formControlName="phoneStore"
-              placeholder="+593990123456"
-              required
-            />
-          </mat-form-field>
-          <div>
-            <button mat-button matStepperPrevious>Atr&aacute;s</button>
-            <button mat-button matStepperNext [mat-dialog-close]="true" cdkFocusInitial>Empezar</button>
-          </div>
-        </form>
-      </mat-step>
-    </mat-stepper>
-  </p>
-</mat-dialog-content>
+
+<h3>Configuremos tu nueva tienda</h3>
+<p>
+  <mat-stepper orientation="vertical" linear="true" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Nombre de tu tienda</ng-template>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Nombre del negocio/ Marca</mat-label>
+          <input
+            matInput
+            placeholder="Nombre del negocio"
+            formControlName="nameStore"
+            required
+          />
+          <mat-error
+            class="alerta"
+            *ngIf="firstFormGroup.controls['nameStore'].hasError('required')"
+          >
+            Campo requerido
+          </mat-error>
+          <mat-error
+            class="alerta"
+            *ngIf="firstFormGroup.controls['nameStore'].hasError('minlength')"
+          >
+            Debe contener al menos 3 caracteres
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Nombre página web</mat-label>
+          <input
+            matInput
+            placeholder="superstoreec.app/NombreDelNegocio"
+            formControlName="nameShortStore"
+            required
+          />
+          <mat-error
+            class="alerta"
+            *ngIf="
+              firstFormGroup.controls['nameShortStore'].hasError('required')
+            "
+          >
+            Campo requerido
+          </mat-error>
+          <mat-error
+            class="alerta"
+            *ngIf="
+              firstFormGroup.controls['nameShortStore'].hasError('pattern')
+            "
+          >
+            Recuerda que tu dirección web solo puede contener números y letras
+            en minúsculas.
+          </mat-error>
+          <mat-error
+            class="alerta"
+            *ngIf="
+              firstFormGroup.controls['nameShortStore'].hasError('minlength')
+            "
+          >
+            Debe contener al menos 3 caracteres
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Descripci&oacute;n</mat-label>
+          <textarea
+            name="descripcion"
+            id="descripcion"
+            matInput
+            placeholder="Descripci&oacute;n"
+            formControlName="descriptionStore"
+          ></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Categoría</mat-label>
+          <mat-select
+            matNativeControl
+            formControlName="categoriaStore"
+            name="car"
+            required
+          >
+            <mat-option value="" selected></mat-option>
+            <mat-option *ngFor="let category of categorias" [value]="category">
+              {{ category }}
+            </mat-option>
+          </mat-select>
+          <mat-error
+            class="alerta"
+            *ngIf="
+              firstFormGroup.controls['categoriaStore'].hasError('required')
+            "
+          >
+            Campo requerido
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Logo</mat-label>
+          <input matInput formControlName="imageStore" required />
+          <mat-error
+            class="alerta"
+            *ngIf="firstFormGroup.controls['imageStore'].hasError('required')"
+          >
+            Campo requerido
+          </mat-error>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Siguiente</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Contacto propietario</ng-template>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Whatsapp</mat-label>
+          <input
+            matInput
+            type="tel"
+            formControlName="phoneStore"
+            placeholder="+593990123456"
+            required
+          />
+          <mat-error
+            class="alerta"
+            *ngIf="secondFormGroup.controls['phoneStore'].hasError('required')"
+          >
+            Campo requerido
+          </mat-error>
+          <mat-error
+            class="alerta"
+            *ngIf="secondFormGroup.controls['phoneStore'].hasError('pattern')"
+          >
+            Ingrese un número de teléfono válido. Recuerde incluir el código de
+            país.
+          </mat-error>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Atr&aacute;s</button>
+          <button
+            mat-raised-button
+            color="primary"
+            matStepperNext
+            (click)="createStore()"
+            [disabled]="secondFormGroup.invalid"
+          >
+            Empezar
+          </button>
+        </div>
+      </form>
+    </mat-step>
+  </mat-stepper>
+</p>

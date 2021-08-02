@@ -31,8 +31,8 @@ export class AuthService {
     return this.angularFireAuth.authState;
   }
 
-  getCurrentUser() {
-    return this.angularFireAuth.authState.pipe(first()).toPromise();
+  async getCurrentUser(): Promise<any> {
+    return await this.angularFireAuth.authState.pipe(first()).toPromise();
   }
 
   getUid() {

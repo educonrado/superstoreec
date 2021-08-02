@@ -15,10 +15,11 @@ import { FirebaseService } from '../firebase/firebase.service';
 })
 export class StoreService {
   stores: Observable<Store[]> | undefined;
+  store: Observable<Store | undefined>;
   private clientsRef: AngularFirestoreCollection<Store>;
   constructor(private angularFirestore: AngularFirestore) {
     this.clientsRef = this.angularFirestore.collection(Appsettings.PATH_STORES);
-    this.getAllStore();
+    this.store = new Observable<Store>();
   }
 
   public async getAllStore(): Promise<void> {
@@ -29,23 +30,17 @@ export class StoreService {
       );
   }
 
-  public async createStore(store: Store, nameStore: string): Promise<void> {
-    const storeRef = this.clientsRef.doc(nameStore);
-    const docRef = await storeRef.get();
-    if (docRef) {
-      console.log('Documento existe' + docRef);
-    } else {
-      console.log('Documento NO existe');
-      return await this.clientsRef.doc(nameStore).set(store);
-    }
+  public async createStore(userUid: string, store: Store): Promise<void> {
+    await this.clientsRef.doc(userUid).set(store);
   }
 
-  public async getStore(nameStore: string): Promise<any> {
-    this.clientsRef
-      .doc(nameStore)
-      .get().pipe();
-      /*.subscribe((doc) => {
-        console.log(doc.data());
-      });*/
+  public async getStore(uid: string): Promise<any> {
+    const storeDoc = this.clientsRef.doc(uid);
+    this.store = storeDoc.valueChanges();
+    /*.subscribe(a=>{
+        console.log(a.data() as Store);
+        this.store= a.data() as Store;
+      })*/
   }
+  
 }

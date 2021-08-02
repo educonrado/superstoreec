@@ -2,10 +2,11 @@ import { Product } from "./product";
 import User from "./user";
 
 export interface Store {
-    id?: string;
     nameStore?: string;
-    manager?: User;
-    phone?: string;
+    description?: string;
+    urlStore?:string;
+    manager?: string;
+    phoneNumberStore?: string;
     socialNetwork?: string[];
     products?: Product[];
     messageClients?: string;

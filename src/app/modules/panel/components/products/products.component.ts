@@ -14,6 +14,7 @@ import User from '@data/model/user';
 import { DialogComponent } from '@shared/components/dialog/dialog.component';
 import { NotificationComponent } from '@shared/components/notification/notification.component';
 import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-products',
@@ -21,10 +22,11 @@ import { Observable } from 'rxjs';
   styleUrls: ['./products.component.scss'],
 })
 export class ProductsComponent implements OnInit, OnDestroy {
-  products: Product[] = [];
+  
   displayedColumns = ['image', 'title', 'price', 'action'];
-
-  stores$ = this.storeService.stores;
+  register = false;
+  store$!: Observable<any>;
+  st!: Store;
 
   constructor(
     private matSnackBar: MatSnackBar,
@@ -36,24 +38,18 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.products = EXAMPLE_PRODUCTS;
-    console.log(this.storeService.getStore("LX0ld88IdTSAM2onP7ZSHPg6Pmf1"));
   }
 
   private validateStore(): void {
     this.authService.getCurrentUser().then((user: any) => {
-      console.log(user.uid);
+      this.storeService.getStore(user.uid);
+      this.store$ = this.storeService.store;
+      this.store$.subscribe(res=>{
+        console.log(res);
+        this.register = res === undefined;        
+      })
+      
     });
-  }
-
-  crearStore() {
-    const store: Store = {
-      id: 'edu',
-      nameStore: 'studio',
-    };
-
-    const nameStore = 'edu-studio';
-    this.storeService.createStore(store, nameStore);
   }
 
   confirmationDelete(id: string): void {
