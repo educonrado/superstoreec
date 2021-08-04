@@ -22,11 +22,10 @@ import { map, tap } from 'rxjs/operators';
   styleUrls: ['./products.component.scss'],
 })
 export class ProductsComponent implements OnInit, OnDestroy {
-  
   displayedColumns = ['image', 'title', 'price', 'action'];
   register = false;
   store$!: Observable<any>;
-  st!: Store;
+  products$!: Observable<Product[]>;
 
   constructor(
     private matSnackBar: MatSnackBar,
@@ -37,18 +36,19 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.validateStore();
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   private validateStore(): void {
     this.authService.getCurrentUser().then((user: any) => {
       this.storeService.getStore(user.uid);
       this.store$ = this.storeService.store;
-      this.store$.subscribe(res=>{
-        console.log(res);
-        this.register = res === undefined;        
-      })
-      
+      this.store$.subscribe((res: Store) => {
+        this.register = res === undefined;
+        if (!this.register) {         
+          this.storeService.getProducts(user.uid);
+          this.products$ = this.storeService.products;
+        }
+      });
     });
   }
 

@@ -1,7 +1,7 @@
 import { Product } from "@data/model/product";
 
 export const EXAMPLE_PRODUCTS : Product[] = [
-    {id:1, title:'Huaracan',price:300000, description:'Lamborghini huarcan evo', image:'https://www.10wallpaper.com/wallpaper/1366x768/1902/Lamborghini_Huracan_EVO_2019_HD_Photo_1366x768.jpg'},
+    /*{id:1, title:'Huaracan',price:300000, description:'Lamborghini huarcan evo', image:'https://www.10wallpaper.com/wallpaper/1366x768/1902/Lamborghini_Huracan_EVO_2019_HD_Photo_1366x768.jpg'},
     {id:2, title:'Muercielago',price:400000, description:'Lamborghini huarcan evo', image:'https://p4.wallpaperbetter.com/wallpaper/778/496/3/cars-supercars-lamborghini-murcielago-lp640-2560x1400-cars-lamborghini-hd-art-wallpaper-preview.jpg'},
     {id:3, title:'Miura',price:900000, description:'Lamborghini huarcan evo', image:'https://wallpapercave.com/wp/wp3134539.jpg'},
     {id:4, title:'Diablo',price:600000, description:'Lamborghini huarcan evo', image:'https://p4.wallpaperbetter.com/wallpaper/1019/740/925/lamborghini-diablo-red-cars-wallpaper-preview.jpg'},
@@ -16,5 +16,5 @@ export const EXAMPLE_PRODUCTS : Product[] = [
     {id:13, title:'Sesto elemento',price:100000, description:'Lamborghini huarcan evo', image:'https://getwalls.io/media/large/2020/07/lamborghini-sesto-elemento-4k-ultra-hd-background-photos-large-922143016.jpg'},
     {id:14, title:'Gallardo',price:80000, description:'Lamborghini huarcan evo', image:'https://www.diariomotor.com/imagenes/picscache/1920x1600c/lamborghini-gallardo_1920x1600c.jpg'},
     {id:15, title:'Reventón',price:340000, description:'Lamborghini huarcan evo', image:'https://p4.wallpaperbetter.com/wallpaper/842/41/184/car-lamborghini-lamborghini-reventon-reventon-wallpaper-preview.jpg'},
-    {id:16, title:'Reventón',price:340000, description:'Lamborghini huarcan evo', image:''},
+    {id:16, title:'Reventón',price:340000, description:'Lamborghini huarcan evo', image:''},*/
 ];

@@ -9,10 +9,14 @@ export class ProductsService {
   
   listProducts: Product[] = EXAMPLE_PRODUCTS;
   constructor() {}
+
+  saveProduct() {
+    
+  }
   
   fetchProduct(id: string) {}
   getProduct(id: string) {
     // return this.http.get<Product>(`${environment.url_api}${id}`);
-    return this.listProducts.find((prod) => prod.id === parseInt(id));
+    // return this.listProducts.find((prod) => prod.id === parseInt(id));
   }
 }

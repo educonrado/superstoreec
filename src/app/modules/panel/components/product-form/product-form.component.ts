@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from '@core/services/products.service';
+import { StoreService } from '@core/services/store/store.service';
 import { Product } from '@data/model/product';
 
 @Component({
@@ -16,37 +17,36 @@ import { Product } from '@data/model/product';
 })
 export class ProductFormComponent implements OnInit {
   productForm: FormGroup = new FormGroup({});
-  titulo=false;
+  titulo = false;
   newProduct!: Product;
   constructor(
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
-    private productService: ProductsService
+    private storeService: StoreService
   ) {
     this.createForm();
   }
   ngOnInit(): void {
     const id: string = this.activatedRoute.snapshot.params.id;
+    console.log(id);
     if (id === undefined) {
       this.titulo = true;
     } else {
       this.titulo = false;
       this.fetchProduct(id);
-      
     }
   }
   fetchProduct(id: string): void {
-    this.productForm = this.formBuilder.group({
-      id: this.productService.getProduct(id)?.id,
-      title: this.productService.getProduct(id)?.title,
-      price:this.productService.getProduct(id)?.price,
-      description: this.productService.getProduct(id)?.description,
-      images: null,
-    });
+    console.log('Consultando un producto');
+    this.storeService.getProduct('LX0ld88IdTSAM2onP7ZSHPg6Pmf1',id);
+    
   }
 
   onSubmit(): void {
-    alert('Thanks!');
+    if (this.productForm.valid) {
+     this.storeService.saveProduct(this.productForm.value);
+     
+    }
   }
 
   private createForm(): void {

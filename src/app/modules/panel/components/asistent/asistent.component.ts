@@ -38,7 +38,6 @@ export class AsistentComponent implements OnInit {
   }
 
   createStore(): void {
-    console.log('Guardando tienda');
     if (this.firstFormGroup.valid && this.secondFormGroup.valid) {
       const frm1 = this.firstFormGroup.value;
       const frm2 = this.secondFormGroup.value;

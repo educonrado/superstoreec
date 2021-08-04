@@ -5,6 +5,7 @@ import {
   DocumentSnapshot,
 } from '@angular/fire/firestore';
 import { Appsettings } from '@data/constants/appsettings';
+import { Product } from '@data/model/product';
 import { Store } from '@data/model/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -16,6 +17,7 @@ import { FirebaseService } from '../firebase/firebase.service';
 export class StoreService {
   stores: Observable<Store[]> | undefined;
   store: Observable<Store | undefined>;
+  products!: Observable<Product[]>;
   private clientsRef: AngularFirestoreCollection<Store>;
   constructor(private angularFirestore: AngularFirestore) {
     this.clientsRef = this.angularFirestore.collection(Appsettings.PATH_STORES);
@@ -42,5 +44,26 @@ export class StoreService {
         this.store= a.data() as Store;
       })*/
   }
-  
+
+  public async getProducts(uid: string) {
+    const storeDoc = this.clientsRef.doc(uid).collection('productos');
+    this.products = storeDoc.snapshotChanges().pipe(
+      map((action) => {
+        return action.map((a) => {
+          const data = a.payload.doc.data() as Product;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+      })
+    );
+  }
+
+  getProduct(uid: string, id: string): void {
+    const productDoc = this.clientsRef.doc(uid).collection('productos').doc(id);
+    productDoc.valueChanges().subscribe(
+      prod=>{
+        console.log(prod);
+      }
+    );
+  }
 }

@@ -1,6 +1,8 @@
-<div class="contenedor-datos" *ngIf="store$ | async as store; else asistente">
+<div class="contenedor-datos" *ngIf="products$ | async as products; else asistente">
+  
+ 
   <div class="title-products">
-    <h1>Listado de productos({{ store.products?.length }})</h1>
+    <h1>Listado de productos({{ products?.length }})</h1>
     <button
       mat-mini-fab
       aria-label="Nuevo producto"
@@ -14,7 +16,7 @@
       mat-table
       class="products-table"
       aria-label="Productos"
-      [dataSource]="store.products"
+      [dataSource]="products"
     >
       <ng-container matColumnDef="image">
         <th mat-header-cell *matHeaderCellDef class="ancho-fijo-columna"></th>
@@ -51,7 +53,7 @@
 
     <mat-paginator
       #paginator
-      [length]="store.products?.length"
+      [length]="products?.length"
       [pageIndex]="0"
       [pageSize]="10"
       [pageSizeOptions]="[5, 10, 20]"
