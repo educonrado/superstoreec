@@ -20,17 +20,20 @@ const routes: Routes = [
         component: ProfileComponent
       },
       {
-        path: 'products/create-product',
+        path: 'products/create-product/:uid',
         component: ProductFormComponent
       },
       {
-        path: 'products/edit-product/:id',
+        path: 'products/edit-product/:id/:uid',
         component: ProductFormComponent
       },
       {
         path: 'dashboard',
         component: DashboardComponent
       },
+      {
+        path: '', redirectTo: '/', pathMatch: 'full'
+      }
     ] 
   }
 ];

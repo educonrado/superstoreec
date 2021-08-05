@@ -1,12 +1,13 @@
-<div class="contenedor-datos" *ngIf="products$ | async as products; else asistente">
-  
- 
+<div
+  class="contenedor-datos"
+  *ngIf="products$ | async as products; else asistente"
+>
   <div class="title-products">
     <h1>Listado de productos({{ products?.length }})</h1>
     <button
       mat-mini-fab
       aria-label="Nuevo producto"
-      routerLink="/panel/products/create-product"
+      [routerLink]="['create-product', uid]"
     >
       <mat-icon>add</mat-icon>
     </button>
@@ -21,8 +22,7 @@
       <ng-container matColumnDef="image">
         <th mat-header-cell *matHeaderCellDef class="ancho-fijo-columna"></th>
         <td mat-cell *matCellDef="let row">
-          <mat-icon *ngIf="!row.image">image</mat-icon>
-          <img *ngIf="row.image" [src]="row.image" alt="imagen-producto" />
+          <img *ngIf="row.images" [src]="row.images" [alt]="row.title" />
         </td>
       </ng-container>
       <ng-container matColumnDef="title">
@@ -36,7 +36,7 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef class="ancho-fijo-columna"></th>
         <td mat-cell *matCellDef="let row" class="btns">
-          <a mat-icon-button [routerLink]="['edit-product', row.id]">
+          <a mat-icon-button [routerLink]="['edit-product', row.id, uid]">
             <mat-icon color="secondary">edit</mat-icon>
           </a>
           <a mat-icon-button>
@@ -69,4 +69,3 @@
     <h1>Cargando</h1>
   </div>
 </ng-template>
-

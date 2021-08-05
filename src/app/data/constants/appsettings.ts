@@ -17,6 +17,7 @@ export class Appsettings {
   public static RUTA_ADMIN = '/panel/products';
   // Path Realtime firebase
   public static PATH_STORES = '/stores';
+  public static PATH_PRODUCTS = 'products';
   // Listado de categorías de tiendas
   public static CATEGORIAS = ['Alimentos','Alquileres','Electrónica','Entretenimiento','Familia','Hogar y jardinería','Pasatiempos','Ropa y accesorios','Vehículos','Otros'] 
   // Mensaje para Whatsapp

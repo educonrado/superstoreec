@@ -46,7 +46,9 @@ export class StoreService {
   }
 
   public async getProducts(uid: string) {
-    const storeDoc = this.clientsRef.doc(uid).collection('productos');
+    const storeDoc = this.clientsRef
+      .doc(uid)
+      .collection(Appsettings.PATH_PRODUCTS);
     this.products = storeDoc.snapshotChanges().pipe(
       map((action) => {
         return action.map((a) => {
@@ -58,12 +60,23 @@ export class StoreService {
     );
   }
 
-  getProduct(uid: string, id: string): void {
-    const productDoc = this.clientsRef.doc(uid).collection('productos').doc(id);
-    productDoc.valueChanges().subscribe(
-      prod=>{
-        console.log(prod);
-      }
-    );
+  getProduct(uid: string, id: string): Observable<any> {
+    const productDoc = this.clientsRef
+      .doc(uid)
+      .collection(Appsettings.PATH_PRODUCTS)
+      .doc(id);
+    return productDoc.valueChanges();
+  }
+
+  saveProduct(uid: string, product: Product): void {
+    this.clientsRef.doc(uid).collection(Appsettings.PATH_PRODUCTS).add(product);
+  }
+
+  updateProduct(uid: string, id: string, product: Product) {
+    this.clientsRef
+      .doc(uid)
+      .collection(Appsettings.PATH_PRODUCTS)
+      .doc(id)
+      .update(product);
   }
 }

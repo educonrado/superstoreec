@@ -21,12 +21,12 @@ import { map, tap } from 'rxjs/operators';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
 })
-export class ProductsComponent implements OnInit, OnDestroy {
+export class ProductsComponent implements OnInit {
   displayedColumns = ['image', 'title', 'price', 'action'];
   register = false;
   store$!: Observable<any>;
   products$!: Observable<Product[]>;
-
+  uid: string = '';
   constructor(
     private matSnackBar: MatSnackBar,
     private matDialog: MatDialog,
@@ -41,6 +41,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   private validateStore(): void {
     this.authService.getCurrentUser().then((user: any) => {
       this.storeService.getStore(user.uid);
+      this.uid = user.uid;
       this.store$ = this.storeService.store;
       this.store$.subscribe((res: Store) => {
         this.register = res === undefined;
@@ -78,7 +79,4 @@ export class ProductsComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-    console.log('Destroy');
-  }
 }
