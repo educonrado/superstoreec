@@ -27,6 +27,7 @@ export class ProductFormComponent implements OnInit {
   uid: string = '';
   id: string = '';
   dirTmpImg: string = ''
+
   constructor(
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
@@ -52,6 +53,7 @@ export class ProductFormComponent implements OnInit {
         this.redirectAdmin();
       } else {
         this.productForm.patchValue(prod);
+        this.loadImage();
       }
     });
   }
@@ -87,18 +89,23 @@ export class ProductFormComponent implements OnInit {
     this.dirTmpImg = 'img-' + this.id;
     const fileRef = this.angularFirestorage.ref(this.dirTmpImg);
     const task = this.angularFirestorage.upload(this.dirTmpImg, file);
-    this.productForm.controls['images'].setValue(file ? file.name : '');
+    this.productForm.controls['image'].setValue(file ? file.name : '');
     task
       .snapshotChanges()
       .pipe(
         finalize(() => {
           this.image$ = fileRef.getDownloadURL();
           this.image$.subscribe((url) => {
-            this.productForm.get('images')?.setValue(url);
+            this.productForm.get('image')?.setValue(url);
           });
         })
       )
       .subscribe();
+  }
+
+  public loadImage() {
+    const fileRef = this.angularFirestorage.ref('img-'+this.id);
+    this.image$ = fileRef.getDownloadURL();
   }
 
   public cancel(): void {
@@ -117,7 +124,7 @@ export class ProductFormComponent implements OnInit {
         [Validators.required, Validators.min(1), Validators.maxLength(10)],
       ],
       description: [null, Validators.required],
-      images: [null, Validators.required],
+      image: [null, Validators.required],
     });
   }
 }

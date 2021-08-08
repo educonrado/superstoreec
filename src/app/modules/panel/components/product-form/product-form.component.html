@@ -71,9 +71,10 @@
       </div>
       <div class="row">
         <div class="col">
+          
           <img class="img-prod-upload" *ngIf="(image$ | async) as image" [src]="image">
-          <input mat-raised-button type="file" (change)="uploadFile($event)" required/>
-          <input type="hidden" name="fileHidden" formControlName="images"/> <!-- Validation Field -->
+          <input mat-raised-button type="file" accept="image/*" (change)="uploadFile($event)" required/>
+          <input type="hidden" name="fileHidden" formControlName="image"/> <!-- Validation Field -->
         </div>
       </div>
     </mat-card-content>
