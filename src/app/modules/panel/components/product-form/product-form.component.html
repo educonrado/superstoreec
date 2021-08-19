@@ -1,4 +1,4 @@
-<form [formGroup]="productForm"  (ngSubmit)="onSubmit()">
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
   <mat-card class="product-form">
     <mat-card-header>
       <mat-card-title *ngIf="titulo">Nuevo producto</mat-card-title>
@@ -33,7 +33,8 @@
               placeholder="0.00"
               formControlName="price"
               type="number"
-              min="1" max="9999999"
+              min="1"
+              max="9999999"
               autocomplete="off"
             />
             <mat-error
@@ -44,7 +45,10 @@
             </mat-error>
             <mat-error
               class="alerta"
-              *ngIf="productForm.controls['price'].hasError('min') || productForm.controls['price'].hasError('max') "
+              *ngIf="
+                productForm.controls['price'].hasError('min') ||
+                productForm.controls['price'].hasError('max')
+              "
             >
               Ingrese un valor v&aacute;lido
             </mat-error>
@@ -71,18 +75,97 @@
       </div>
       <div class="row">
         <div class="col">
-          
+          <!--  
           <img class="img-prod-upload" *ngIf="(image$ | async) as image" [src]="image">
           <input mat-raised-button type="file" accept="image/*" (change)="uploadFile($event)" required/>
           <input type="hidden" name="fileHidden" formControlName="image"/> <!-- Validation Field -->
+          <!-- </div> -->
+
+          <!-- <div class="container-input-file">
+          <label class="input-file">
+            <input type="file" formControlName="image" required>
+            <mat-icon>cloud_upload</mat-icon>
+            <span>Choose image</span>
+          </label>
+        </div> -->
+          <!-- <img id="file-image" *ngIf="imgSrc" [src]="imgSrc" class="hidden" />
+          <div *ngIf="imgSrc">
+            <mat-icon>photo_camera</mat-icon>
+          </div>
+
+          <input
+            id="file-upload"
+            type="file"
+            name="fileUpload"
+            accept="image/*"
+            formControlName="image"
+            (change)="showPreview($event)"
+            required
+          /> -->
+
+          <!-- Select File -->
+          <!-- <input type="file" accept="image/*" (change)="showPreview($event)" />
+
+    <!-- Image Preview 
+    <div class="imagePreview" *ngIf="imageURL && imageURL !== ''">
+      <img [src]="imageURL" >
+    </div> -->
+          <div class="uploader">
+            <input
+              id="file-upload"
+              type="file"
+              accept="image/*"
+              (change)="showPreview($event)"
+            />
+
+            <label for="file-upload" id="file-drag">
+              <img
+                id="file-image"
+                *ngIf="imageURL && imageURL !== ''"
+                [src]="imageURL"
+                alt="Preview"
+                class="hidden"
+              />
+              <div id="start">
+                <div *ngIf="!imageURL && imageURL === ''">
+                  <mat-icon aria-hidden="true">cloud_upload</mat-icon>
+                  <div>Seleccione imagen</div>
+                </div>
+                <div id="notimage" class="hidden">
+                  Por favor seleccione una imagen
+                </div>
+                <span id="file-upload-btn" class="btn btn-primary"
+                  >Seleccione imagen</span
+                >
+              </div>
+              <div id="response" class="hidden">
+                <div id="messages"></div>
+                <progress class="progress" id="file-progress" value="0">
+                  <span>0</span>%
+                </progress>
+              </div>
+            </label>
+          </div>
         </div>
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="secondary" (click)="cancel()" type="button">
+      <button
+        mat-raised-button
+        color="secondary"
+        (click)="cancel()"
+        type="button"
+      >
         Cancelar
       </button>
-      <button mat-raised-button color="primary" type="submit" [disabled]="productForm.invalid">Guardar</button>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="productForm.invalid"
+      >
+        Guardar
+      </button>
     </mat-card-actions>
   </mat-card>
 </form>

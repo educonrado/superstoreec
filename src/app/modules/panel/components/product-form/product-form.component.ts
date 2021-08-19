@@ -26,7 +26,9 @@ export class ProductFormComponent implements OnInit {
   image$!: Observable<any>;
   uid: string = '';
   id: string = '';
-  dirTmpImg: string = ''
+  dirTmpImg: string = '';
+  imageURL: string='';
+  file: any= '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -53,7 +55,7 @@ export class ProductFormComponent implements OnInit {
         this.redirectAdmin();
       } else {
         this.productForm.patchValue(prod);
-        this.loadImage();
+        //this.loadImage();
       }
     });
   }
@@ -62,6 +64,7 @@ export class ProductFormComponent implements OnInit {
     if (this.productForm.valid) {
       if (this.titulo) {
         try {
+          this.uploadFile(this.file);
           this.storeService.saveProduct(this.uid, this.productForm.value);
         } catch (error) {
           console.log(error);
@@ -84,9 +87,24 @@ export class ProductFormComponent implements OnInit {
     }
   }
 
-  public uploadFile(event: any): void {
-    const file = event.target.files[0];
-    this.dirTmpImg = 'img-' + this.id;
+  public showPreview(event: any):void {
+    this.file = event.target.files[0];
+    this.productForm.patchValue({
+      image: this.file
+    });
+    this.productForm.get('image')?.updateValueAndValidity();
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imageURL = reader.result as string;
+    }
+    reader.readAsDataURL(this.file);
+    
+  }
+
+  private uploadFile(file: any): void {    
+    this.dirTmpImg = 'images/' + Math.floor(Math.random() * 999999);
+    console.log(this.dirTmpImg);
+    /*
     const fileRef = this.angularFirestorage.ref(this.dirTmpImg);
     const task = this.angularFirestorage.upload(this.dirTmpImg, file);
     this.productForm.controls['image'].setValue(file ? file.name : '');
@@ -100,13 +118,13 @@ export class ProductFormComponent implements OnInit {
           });
         })
       )
-      .subscribe();
+      .subscribe();*/
   }
-
+/*
   public loadImage() {
     const fileRef = this.angularFirestorage.ref('img-'+this.id);
     this.image$ = fileRef.getDownloadURL();
-  }
+  }*/
 
   public cancel(): void {
     this.redirectAdmin();
