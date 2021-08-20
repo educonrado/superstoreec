@@ -18,6 +18,7 @@ export class Appsettings {
   // Path Realtime firebase
   public static PATH_STORES = '/stores';
   public static PATH_PRODUCTS = 'products';
+  public static PATH_STORAGE_IMAGES = 'images/';
   // Listado de categorías de tiendas
   public static CATEGORIAS = ['Alimentos','Alquileres','Electrónica','Entretenimiento','Familia','Hogar y jardinería','Pasatiempos','Ropa y accesorios','Vehículos','Otros'] 
   // Mensaje para Whatsapp

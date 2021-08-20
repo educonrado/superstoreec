@@ -28,7 +28,6 @@ export class ProductFormComponent implements OnInit {
   id: string = '';
   dirTmpImg: string = '';
   imageURL: string='';
-  file: any= '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -64,7 +63,6 @@ export class ProductFormComponent implements OnInit {
     if (this.productForm.valid) {
       if (this.titulo) {
         try {
-          this.uploadFile(this.file);
           this.storeService.saveProduct(this.uid, this.productForm.value);
         } catch (error) {
           console.log(error);
@@ -87,7 +85,7 @@ export class ProductFormComponent implements OnInit {
     }
   }
 
-  public showPreview(event: any):void {
+  /*public showPreview(event: any):void {
     this.file = event.target.files[0];
     this.productForm.patchValue({
       image: this.file
@@ -99,12 +97,12 @@ export class ProductFormComponent implements OnInit {
     }
     reader.readAsDataURL(this.file);
     
-  }
+  }*/
 
-  private uploadFile(file: any): void {    
-    this.dirTmpImg = 'images/' + Math.floor(Math.random() * 999999);
-    console.log(this.dirTmpImg);
-    /*
+  public uploadFile(event: any): void {    
+    const file = event.target.files[0];
+    this.dirTmpImg = Appsettings.PATH_STORAGE_IMAGES + this.id === undefined ? this.storeService.getNumber(): this.id;
+    
     const fileRef = this.angularFirestorage.ref(this.dirTmpImg);
     const task = this.angularFirestorage.upload(this.dirTmpImg, file);
     this.productForm.controls['image'].setValue(file ? file.name : '');
@@ -118,7 +116,7 @@ export class ProductFormComponent implements OnInit {
           });
         })
       )
-      .subscribe();*/
+      .subscribe();
   }
 /*
   public loadImage() {

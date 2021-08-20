@@ -60,6 +60,15 @@ export class StoreService {
     );
   }
 
+  public getNumber(): any {
+    this.getIdNextProduct().then((id)=>{
+      return id as string;
+    });
+  }
+  private async getIdNextProduct(): Promise<string> {
+    return this.clientsRef.doc().ref.id;
+  }
+
   getProduct(uid: string, id: string): Observable<any> {
     const productDoc = this.clientsRef
       .doc(uid)
