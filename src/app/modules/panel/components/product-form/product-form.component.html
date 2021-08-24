@@ -75,49 +75,18 @@
       </div>
       <div class="row">
         <div class="col">
-          <!--  
-          <img class="img-prod-upload" *ngIf="(image$ | async) as image" [src]="image">
-          <input mat-raised-button type="file" accept="image/*" (change)="uploadFile($event)" required/>
-          <input type="hidden" name="fileHidden" formControlName="image"/> <!-- Validation Field -->
-          <!-- </div> -->
-
-          <!-- <div class="container-input-file">
-          <label class="input-file">
-            <input type="file" formControlName="image" required>
-            <mat-icon>cloud_upload</mat-icon>
-            <span>Choose image</span>
-          </label>
-        </div> -->
-          <!-- <img id="file-image" *ngIf="imgSrc" [src]="imgSrc" class="hidden" />
-          <div *ngIf="imgSrc">
-            <mat-icon>photo_camera</mat-icon>
-          </div>
-
-          <input
-            id="file-upload"
-            type="file"
-            name="fileUpload"
-            accept="image/*"
-            formControlName="image"
-            (change)="showPreview($event)"
-            required
-          /> -->
-
-          <!-- Select File -->
-          <!-- <input type="file" accept="image/*" (change)="showPreview($event)" />
-
-    <!-- Image Preview 
-    <div class="imagePreview" *ngIf="imageURL && imageURL !== ''">
-      <img [src]="imageURL" >
-    </div> -->
           <div class="uploader">
             <input
-              id="file-upload"
+              #uploadImage
+              mat-raised-button
               type="file"
               accept="image/*"
-              (change)="uploadFile($event)"
+              required
+              id="file-upload"
+              accept="image/*"
+              (change)="previewImage($event)"
             />
-
+            <input type="hidden" name="fileHidden" formControlName="image" />
             <label for="file-upload" id="file-drag">
               <img
                 id="file-image"
@@ -169,3 +138,4 @@
     </mat-card-actions>
   </mat-card>
 </form>
+<app-spinner [showSpinner]="showSpinner"></app-spinner>

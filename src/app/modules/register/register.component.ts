@@ -20,8 +20,7 @@ export class RegisterComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private authService: AuthService,
-    private matSnackBar: MatSnackBar,
-    private clientService: ClientsService
+    private matSnackBar: MatSnackBar
   ) {
     this.createForm();
   }
