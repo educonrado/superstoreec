@@ -32,13 +32,13 @@
           <input
             matInput
             placeholder="superstoreec.app/NombreDelNegocio"
-            formControlName="nameShortStore"
+            formControlName="urlStore"
             required
           />
           <mat-error
             class="alerta"
             *ngIf="
-              firstFormGroup.controls['nameShortStore'].hasError('required')
+              firstFormGroup.controls['urlStore'].hasError('required')
             "
           >
             Campo requerido
@@ -46,7 +46,7 @@
           <mat-error
             class="alerta"
             *ngIf="
-              firstFormGroup.controls['nameShortStore'].hasError('pattern')
+              firstFormGroup.controls['urlStore'].hasError('pattern')
             "
           >
             Recuerda que tu dirección web solo puede contener números y letras
@@ -55,7 +55,7 @@
           <mat-error
             class="alerta"
             *ngIf="
-              firstFormGroup.controls['nameShortStore'].hasError('minlength')
+              firstFormGroup.controls['urlStore'].hasError('minlength')
             "
           >
             Debe contener al menos 3 caracteres
@@ -68,14 +68,14 @@
             id="descripcion"
             matInput
             placeholder="Descripci&oacute;n"
-            formControlName="descriptionStore"
+            formControlName="description"
           ></textarea>
         </mat-form-field>
         <mat-form-field appearance="fill" class="full-width">
           <mat-label>Categoría</mat-label>
           <mat-select
             matNativeControl
-            formControlName="categoriaStore"
+            formControlName="category"
             name="car"
             required
           >
@@ -87,24 +87,62 @@
           <mat-error
             class="alerta"
             *ngIf="
-              firstFormGroup.controls['categoriaStore'].hasError('required')
+              firstFormGroup.controls['category'].hasError('required')
             "
           >
             Campo requerido
           </mat-error>
         </mat-form-field>
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Logo</mat-label>
-          <input matInput formControlName="imageStore" required />
-          <mat-error
-            class="alerta"
-            *ngIf="firstFormGroup.controls['imageStore'].hasError('required')"
-          >
-            Campo requerido
-          </mat-error>
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperNext>Siguiente</button>
+        <div class="row">
+          <div class="col">
+            <div class="uploader">
+              <input
+                #uploadImage
+                mat-raised-button
+                type="file"
+                accept="image/*"
+                required
+                id="file-upload"
+                (change)="previewImage($event)"
+              />
+              <input
+                type="hidden"
+                name="fileHidden"
+                formControlName="imageStore"
+              />
+              <label for="file-upload" id="file-drag">
+                <img
+                  *ngIf="imageURL && imageURL !== ''"
+                  [src]="imageURL"
+                  alt="Preview"
+                  class="hidden file-image"
+                />
+                <div id="start">
+                  <div *ngIf="!imageURL && imageURL === ''">
+                    <mat-icon aria-hidden="true">cloud_upload</mat-icon>
+                    <div>Seleccione logo</div>
+                  </div>
+                  <div id="notimage" class="hidden">
+                    Por favor seleccione un logo
+                  </div>
+                  <span id="file-upload-btn" class="btn btn-primary"
+                    >Seleccione logo</span
+                  >
+                </div>
+                <div id="response" class="hidden">
+                  <div id="messages"></div>
+                  <progress class="progress" id="file-progress" value="0">
+                    <span>0</span>%
+                  </progress>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <button appearance="fill" class="spacer-top" mat-raised-button color="primary" matStepperNext>Siguiente</button>
+          </div>
         </div>
       </form>
     </mat-step>
@@ -116,19 +154,19 @@
           <input
             matInput
             type="tel"
-            formControlName="phoneStore"
+            formControlName="phoneNumberStore"
             placeholder="+593990123456"
             required
           />
           <mat-error
             class="alerta"
-            *ngIf="secondFormGroup.controls['phoneStore'].hasError('required')"
+            *ngIf="secondFormGroup.controls['phoneNumberStore'].hasError('required')"
           >
             Campo requerido
           </mat-error>
           <mat-error
             class="alerta"
-            *ngIf="secondFormGroup.controls['phoneStore'].hasError('pattern')"
+            *ngIf="secondFormGroup.controls['phoneNumberStore'].hasError('pattern')"
           >
             Ingrese un número de teléfono válido. Recuerde incluir el código de
             país.
@@ -150,3 +188,4 @@
     </mat-step>
   </mat-stepper>
 </p>
+<app-spinner [showSpinner]="showSpinner"></app-spinner>

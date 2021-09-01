@@ -11,7 +11,8 @@ export interface Store {
     products?: Product[];
     messageClients?: string;
     category?: string;
-    memberType?: string; 
+    memberType?: string;
+    imageStore?: string; 
 
 }
 

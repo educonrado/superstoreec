@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,7 +13,7 @@ import { finalize } from 'rxjs/operators';
   templateUrl: './product-form.component.html',
   styleUrls: ['./product-form.component.scss'],
 })
-export class ProductFormComponent implements OnInit {
+export class ProductFormComponent implements OnInit, OnDestroy {
   @ViewChild('uploadImage')
   uploadImage!: ElementRef;
   productForm: FormGroup = new FormGroup({});
@@ -26,6 +26,7 @@ export class ProductFormComponent implements OnInit {
   imageURL: string = '';
   file: any;
   showSpinner = false;
+  subciption$: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -49,22 +50,28 @@ export class ProductFormComponent implements OnInit {
   }
 
   fetchProduct(uid: string, id: string): void {
-    this.storeService.getProduct(uid, id).subscribe((prod: Product) => {
+    this.subciption$ = this.storeService.getProduct(uid, id).subscribe((prod: Product) => {
       if (prod === undefined) {
         this.redirectAdmin();
       } else {
         this.productForm.patchValue(prod);
-        console.log(this.productForm.value);
-
         this.loadImage();
       }
     });
   }
 
   onSubmit(): void {
-    if (this.productForm.valid) {
+    if (this.productForm.valid && this.file) {
       this.saveProduct(this.file);
-    }
+    } 
+  }
+
+  private updateProductForm() {
+    this.storeService.updateProduct(
+      this.uid,
+      this.id,
+      this.productForm.value
+    );
   }
 
   /**
@@ -75,8 +82,6 @@ export class ProductFormComponent implements OnInit {
   private saveProduct(file: any): void {
     this.showSpinner = true;
     this.dirTmpImg = this.createUrlImage();
-    console.log(this.dirTmpImg);
-
     const fileRef = this.angularFirestorage.ref(this.dirTmpImg);
     const task = this.angularFirestorage.upload(this.dirTmpImg, file);
     task
@@ -90,11 +95,7 @@ export class ProductFormComponent implements OnInit {
               if (this.titulo) {
                 this.storeService.saveProduct(this.uid, this.productForm.value);
               } else {
-                this.storeService.updateProduct(
-                  this.uid,
-                  this.id,
-                  this.productForm.value
-                );
+                this.updateProductForm();
               }
             } catch (error) {
               console.log(error);
@@ -124,6 +125,7 @@ export class ProductFormComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = () => {
         this.imageURL = reader.result as string;
+        this.image$ = new Observable<any>();
       };
       reader.readAsDataURL(this.file);
       this.productForm.controls['image'].setValue(
@@ -143,7 +145,7 @@ export class ProductFormComponent implements OnInit {
    */
   public loadImage(): void {
     const fileRef = this.angularFirestorage.ref(
-      'images/' + this.uid + '/' + this.id
+      'images/' + this.uid + '/' + this.productForm.get('nameImg')?.value
     );
     this.image$ = fileRef.getDownloadURL();
   }
@@ -168,4 +170,10 @@ export class ProductFormComponent implements OnInit {
       nameImg: null,
     });
   }
+
+  ngOnDestroy(): void {
+    if (!this.titulo) {
+      this.subciption$.unsubscribe();
+    }
+   }
 }

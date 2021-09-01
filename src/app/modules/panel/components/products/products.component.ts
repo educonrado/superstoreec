@@ -1,20 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ControlContainer } from '@angular/forms';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '@core/services/auth/auth.service';
-import { ClientsService } from '@core/services/clients/clients.service';
 import { StoreService } from '@core/services/store/store.service';
 import { Appsettings } from '@data/constants/appsettings';
-import { EXAMPLE_PRODUCTS } from '@data/mocks/products-mock';
-import { BodyDialog } from '@data/model/body-dialog';
 import { Product } from '@data/model/product';
 import { Store } from '@data/model/store';
-import User from '@data/model/user';
 import { DialogComponent } from '@shared/components/dialog/dialog.component';
 import { NotificationComponent } from '@shared/components/notification/notification.component';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-products',
@@ -36,7 +31,8 @@ export class ProductsComponent implements OnInit {
     this.validateStore();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   private validateStore(): void {
     this.authService.getCurrentUser().then((user: any) => {
@@ -45,7 +41,7 @@ export class ProductsComponent implements OnInit {
       this.store$ = this.storeService.store;
       this.store$.subscribe((res: Store) => {
         this.register = res === undefined;
-        if (!this.register) {         
+        if (!this.register) {
           this.storeService.getProducts(user.uid);
           this.products$ = this.storeService.products;
         }
@@ -53,7 +49,7 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  confirmationDelete(id: string): void {
+  confirmationDelete(id: string, downloadUrl: string): void {
     const dialogRef = this.matDialog.open(DialogComponent, {
       width: '250px',
       data: {
@@ -65,11 +61,12 @@ export class ProductsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.deleteProduct(id);
+        this.deleteProduct(id, downloadUrl);
       }
     });
   }
-  private deleteProduct(id: string): void {
+  private deleteProduct(id: string, downloadUrl: string): void {
+    this.storeService.deleteProduct(this.uid, id, downloadUrl);
     this.notification(Appsettings.MESSAGE_DELETE);
   }
   private notification(message: string): void {
@@ -78,5 +75,4 @@ export class ProductsComponent implements OnInit {
       data: message,
     });
   }
-
 }

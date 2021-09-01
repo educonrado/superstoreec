@@ -83,17 +83,20 @@
               accept="image/*"
               required
               id="file-upload"
-              accept="image/*"
               (change)="previewImage($event)"
             />
             <input type="hidden" name="fileHidden" formControlName="image" />
             <label for="file-upload" id="file-drag">
               <img
-                id="file-image"
                 *ngIf="imageURL && imageURL !== ''"
                 [src]="imageURL"
                 alt="Preview"
-                class="hidden"
+                class="hidden file-image"
+              />
+              <img
+                class="hidden file-image"
+                *ngIf="image$ | async as image"
+                [src]="image"
               />
               <div id="start">
                 <div *ngIf="!imageURL && imageURL === ''">
@@ -131,7 +134,7 @@
         mat-raised-button
         color="primary"
         type="submit"
-        [disabled]="productForm.invalid"
+        [disabled]="productForm.invalid || !productForm.touched && !file"
       >
         Guardar
       </button>

@@ -1,4 +1,7 @@
+import { ViewChild } from '@angular/core';
+import { ElementRef } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
+import { AngularFireStorage } from '@angular/fire/storage';
 import {
   FormBuilder,
   FormControl,
@@ -10,7 +13,7 @@ import { StoreService } from '@core/services/store/store.service';
 import { Appsettings } from '@data/constants/appsettings';
 import { MemberType, Store } from '@data/model/store';
 import User from '@data/model/user';
-import { tap } from 'rxjs/operators';
+import { finalize, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-asistent',
@@ -18,6 +21,8 @@ import { tap } from 'rxjs/operators';
   styleUrls: ['./asistent.component.scss'],
 })
 export class AsistentComponent implements OnInit {
+  @ViewChild('uploadImage')
+  uploadImage!: ElementRef;
   store: Store = {};
   firstFormGroup: FormGroup = new FormGroup({});
   secondFormGroup: FormGroup = new FormGroup({});
@@ -25,10 +30,14 @@ export class AsistentComponent implements OnInit {
   user: User | undefined;
   selectedCategory: string = '';
   categorias: string[] = Appsettings.CATEGORIAS;
+  imageURL: string = '';
+  file: any;
+  showSpinner = false;
   constructor(
     private formBuilder: FormBuilder,
     private storeService: StoreService,
-    private authService: AuthService
+    private authService: AuthService,
+    private angularFirestorage: AngularFireStorage
   ) {
     this.createForm();
   }
@@ -39,21 +48,70 @@ export class AsistentComponent implements OnInit {
 
   createStore(): void {
     if (this.firstFormGroup.valid && this.secondFormGroup.valid) {
-      const frm1 = this.firstFormGroup.value;
-      const frm2 = this.secondFormGroup.value;
-      this.store.nameStore = frm1.nameStore;
-      this.store.description = frm1.descriptionStore;
-      this.store.urlStore = frm1.nameShortStore;
-      this.store.manager = this.userUID;
-      this.store.phoneNumberStore = frm2.phoneStore;
-      this.store.messageClients = Appsettings.MESSAGE_TMP;
-      this.store.category = frm1.categoriaStore;
-      this.store.memberType = MemberType.FREE;
-      this.store.products = [];
+      this.showSpinner = true;
+      this.saveImage(this.file);
+    }
+  }
 
-      this.storeService
-        .createStore(this.userUID, this.store)
-        .then(() => console.log);
+  private saveImage(file: any): void {
+    this.showSpinner = true;
+    const dirTmpImg =
+      Appsettings.PATH_STORAGE_IMAGES +
+      `${this.userUID}` +
+      Appsettings.PATH_LOGO;
+    const fileRef = this.angularFirestorage.ref(dirTmpImg);
+    const task = this.angularFirestorage.upload(dirTmpImg, file);
+    task
+      .snapshotChanges()
+      .pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().subscribe((url) => {
+            this.saveStore(url);
+          });
+        })
+      )
+      .subscribe();
+  }
+
+  private saveStore(urlStorage: string): void {
+    this.firstFormGroup.controls['imageStore'].setValue(urlStorage);
+    const frm1 = this.firstFormGroup.value;
+    const frm2 = this.secondFormGroup.value;
+    this.store.nameStore = frm1.nameStore;
+    this.store.description = frm1.description;
+    this.store.urlStore = frm1.urlStore;
+    this.store.manager = this.user?.displayName
+      ? this.user?.displayName
+      : this.userUID;
+    this.store.phoneNumberStore = frm2.phoneNumberStore;
+    this.store.messageClients = Appsettings.MESSAGE_TMP;
+    this.store.category = frm1.category;
+    this.store.memberType = MemberType.FREE;
+    this.store.products = [];
+    this.store.imageStore = frm1.imageStore;
+    this.storeService
+      .createStore(this.userUID, this.store)
+      .then(() => console.log)
+      .finally(() => (this.showSpinner = false));
+  }
+
+  public previewImage(event: any): void {
+    this.file = event.target.files[0];
+    if (this.file.type.includes('image')) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imageURL = reader.result as string;
+      };
+      reader.readAsDataURL(this.file);
+      this.firstFormGroup.controls['imageStore'].setValue(
+        this.file ? this.file.name : ''
+      );
+    } else {
+      this.file = null;
+      this.imageURL = '';
+      this.uploadImage.nativeElement.value = '';
+      this.firstFormGroup.controls['imageStore'].setValue('');
+      alert('Debe escoger una imagen válida');
     }
   }
 
@@ -67,7 +125,7 @@ export class AsistentComponent implements OnInit {
   private createForm(): void {
     this.firstFormGroup = this.formBuilder.group({
       nameStore: [null, [Validators.required, Validators.minLength(3)]],
-      nameShortStore: [
+      urlStore: [
         null,
         [
           Validators.required,
@@ -75,14 +133,14 @@ export class AsistentComponent implements OnInit {
           Validators.minLength(3),
         ],
       ],
-      descriptionStore: null,
-      imageStore: null,
-      categoriaStore: [null, Validators.required],
+      description: null,
+      imageStore: [null, Validators.required],
+      category: [null, Validators.required],
     });
     this.secondFormGroup = this.formBuilder.group({
       instructionPay: null,
       direction: null,
-      phoneStore: [
+      phoneNumberStore: [
         this.user?.phoneNumber,
         [Validators.required, Validators.pattern('[+0-9]+')],
       ],

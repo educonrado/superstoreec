@@ -1,18 +1,6 @@
-.contenedor-datos{
-  margin: 20px;
-}
-
 .products-table {
   width: 98%;
   margin: 1%;
-}
-
-.header-spacer {
-  flex: 1 1 auto;
-}
-.title-products{
-  display: flex;
-  justify-content: space-between;
 }
 
 img {
@@ -24,6 +12,12 @@ img {
 .ancho-fijo-columna {
   width: 20%;
 }
+
+.title-products{
+  display: flex;
+  justify-content: space-between;
+}
+
 .btns {
   text-align: right;
 }
