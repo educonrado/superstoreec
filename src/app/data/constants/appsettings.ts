@@ -21,6 +21,7 @@ export class Appsettings {
   public static PATH_STORAGE_IMAGES = 'images/';
   // Listado de categorías de tiendas
   public static CATEGORIAS = ['Alimentos','Alquileres','Electrónica','Entretenimiento','Familia','Hogar y jardinería','Pasatiempos','Ropa y accesorios','Vehículos','Otros'] 
+  public static ICONS_CATEGORIAS = ['restaurant','apartment','devices','sports_esports','people_alt','yard','smart_toy','checkroom','drive_eta','devices_other'] 
   // Mensaje para Whatsapp
   public static MESSAGE_WHATSAPP =
     'Hola%2C%20me%20gustaría%20realizar%20un%20pedido%20👇🏼%0A%0A✅🛵*Entrega*%20pedido%20número%3A%203%20por%3A%20https%3A%2F%2Fpidapi.app%2Fn%2Fprisespinozacosmetica%0A--%0A▪%201%20x%20Polvo%20compacto%20a%20prueba%20de%20agua%20%2434.50%0A%0AComentarios%20o%20instrucciones%3A%0Aasdf%0A--%0ATotal%20de%20artículos%3A%20%2434.50%0AEntrega%3A%20Gratis%0A*Total*%20(%20Imp.%20incluido)%3A%20%2434.50%0A%0ADetalles%20de%20entrega🛵%0A%0A*Nombre*%3A%20asd%0ANúmero%20de%20contacto%3A%2009963789276%0ADirección%3A%20asdf%0AReferencia%3A%20asdf%0A%0A------------------------------------------%0A%0A*Pris%20Espinoza%20Cosmética%20botánica*%20confirmará%20la%20orden%20luego%20de%20recibir%20este%20mensaje.%C2%A0%0AAquí%20encuentras%20las%20opciones%20de%20pago%20disponibles👇🏼.%0A%0A*Instrucciones%20de%20pago*💳%0APagos%20en%20efectivo%20o%20transferencias%20contraentrega.%0ASe%20aceptan%20todas%20las%20tarjetas%20de%20crédito%20y%20débito.%0A%0AAquí%20está%20mi%20pedido%20☝🏼';
