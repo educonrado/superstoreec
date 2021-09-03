@@ -23,6 +23,7 @@ export class NavigationComponent {
       shareReplay()
     );
   name: string = '';
+  numNotification = 0;
 
   constructor(
     private breakpointObserver: BreakpointObserver,

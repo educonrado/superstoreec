@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NotificationComponent } from './components/notification/notification.component';
+import { AboutComponent } from './components/about/about.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { ProductFormComponent } from './components/product-form/product-form.component';
@@ -16,8 +18,16 @@ const routes: Routes = [
         component: ProductsComponent
       },
       {
+        path: 'about',
+        component: AboutComponent
+      },
+      {
         path: 'profile',
         component: ProfileComponent
+      },
+      {
+        path: 'notification',
+        component: NotificationComponent
       },
       {
         path: 'products/create-product/:uid',

@@ -20,6 +20,10 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
   declarations: [],
@@ -49,6 +53,10 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatDialogModule,
     MatProgressSpinnerModule,
     MatStepperModule,
+    MatSlideToggleModule,
+    MatTooltipModule,
+    MatCheckboxModule,
+    MatBadgeModule,
   ],
   exports: [
     MatToolbarModule,
@@ -75,6 +83,10 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatDialogModule,
     MatProgressSpinnerModule,
     MatStepperModule,
+    MatSlideToggleModule,
+    MatTooltipModule,
+    MatCheckboxModule,
+    MatBadgeModule,
   ],
 })
 export class MaterialModule {}

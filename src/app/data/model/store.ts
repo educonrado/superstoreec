@@ -7,7 +7,7 @@ export interface Store {
     urlStore?:string;
     manager?: string;
     phoneNumberStore?: string;
-    socialNetwork?: string[];
+    socialNetwork?: any[];
     products?: Product[];
     messageClients?: string;
     category?: string;

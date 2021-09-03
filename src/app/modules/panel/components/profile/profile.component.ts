@@ -7,7 +7,6 @@ import { StoreService } from '@core/services/store/store.service';
 import { Appsettings } from '@data/constants/appsettings';
 import { Store } from '@data/model/store';
 import { NotificationComponent } from '@shared/components/notification/notification.component';
-import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 @Component({
   selector: 'app-profile',
@@ -18,12 +17,13 @@ export class ProfileComponent implements OnInit {
   @ViewChild('uploadImage')
   uploadImage!: ElementRef;
   store!: Store;
-  categorias: string[] = Appsettings.CATEGORIAS;
+  categorias = Appsettings.CATEGORIAS;
   profileForm: FormGroup = new FormGroup({});
   imageURL: string = '';
   file: any;
   userUID: string = '';
   showSpinner = false;
+  socials!: [];
 
   /**
    *
@@ -45,12 +45,12 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.store = this.storeService.tienda;
     this.profileForm.patchValue(this.store);
-    this.imageURL = this.profileForm.controls['imageStore'].value;
+    this.imageURL = this.profileForm.controls['imageStore'].value;    
     this.getUser();
   }
 
   onSubmit(): void {
-    if (this.profileForm.valid && this.file) {
+    if (this.profileForm.valid) {
       this.updateProfile(this.file);
     }
   }
@@ -67,10 +67,7 @@ export class ProfileComponent implements OnInit {
    */
   private updateProfile(file: any): void {
     this.showSpinner = true;
-    const dirTmpImg =
-      Appsettings.PATH_STORAGE_IMAGES +
-      `${this.userUID}` +
-      Appsettings.PATH_LOGO;
+    const dirTmpImg = Appsettings.PATH_STORAGE_IMAGES + this.userUID + Appsettings.PATH_LOGO;
     const fileRef = this.angularFirestorage.ref(dirTmpImg);
     const task = this.angularFirestorage.upload(dirTmpImg, file);
     task
@@ -131,16 +128,19 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  /**
+   * TODO Implememtar redes sociales
+   */
   private createFormProfile(): void {
     this.profileForm = this.formBuilder.group({
       nameStore: [null, Validators.required],
-      urlStore: [null, Validators.required],
+      urlStore: [null, [Validators.required, Validators.pattern('[a-zA-Z.]*')]],
       phoneNumberStore: [null, Validators.required],
       manager: [null, Validators.required],
-      description: [null, Validators.required],
+      description: null,
       category: [null, Validators.required],
-      socialNetwork: [null, Validators.required],
-      messageClients: [null, Validators.required],
+      socialNetwork: null,
+      messageClients: null,
       imageStore: [null, Validators.required],
     });
   }

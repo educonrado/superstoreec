@@ -11,6 +11,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { SharedModule } from '@shared/shared.module';
 import { AsistentComponent } from './components/asistent/asistent.component';
+import { NotificationComponent } from './components/notification/notification.component';
+import { AboutComponent } from './components/about/about.component';
 
 
 
@@ -19,7 +21,7 @@ import { AsistentComponent } from './components/asistent/asistent.component';
     NavigationComponent, 
     DashboardComponent, 
     ProductsComponent, 
-    ProfileComponent, ProductFormComponent, AsistentComponent
+    ProfileComponent, ProductFormComponent, AsistentComponent, NotificationComponent, AboutComponent
   ],
   imports: [
     CommonModule,

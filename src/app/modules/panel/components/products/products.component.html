@@ -1,19 +1,34 @@
-
 <div
   class="contenedor-datos"
   *ngIf="products$ | async as products; else asistente"
 >
   <div class="title-products">
     <h1>Listado de productos({{ products?.length }})</h1>
-    <button
-      mat-mini-fab
-      aria-label="Nuevo producto"
-      [routerLink]="['create-product', uid]"
-    >
-      <mat-icon>add</mat-icon>
-    </button>
+    <div>
+      <button
+        *ngIf="products.length > 0"
+        mat-mini-fab
+        color="primary"
+        aria-label="Publicar tienda"
+        matTooltip="Publicar tienda"
+        (click)="publicStore()"
+      >
+        <mat-icon>publish</mat-icon>
+      </button>
+      <button
+        mat-mini-fab
+        aria-label="Nuevo producto"
+        [routerLink]="['create-product', uid]"
+        matTooltip="Agregar producto"
+      >
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
   </div>
-  <div class="mat-elevation-z8">
+  <div class="contenedor-datos-center" *ngIf="products.length === 0">
+    Comencemos agregando productos
+  </div>
+  <div class="mat-elevation-z8" *ngIf="products.length > 0">
     <table
       mat-table
       class="products-table"
@@ -41,7 +56,9 @@
             <mat-icon color="secondary">edit</mat-icon>
           </a>
           <a mat-icon-button>
-            <mat-icon color="warn" (click)="confirmationDelete(row.id, row.image)"
+            <mat-icon
+              color="warn"
+              (click)="confirmationDelete(row.id, row.image)"
               >delete</mat-icon
             >
           </a>
@@ -67,6 +84,9 @@
     <app-asistent></app-asistent>
   </div>
   <div class="contenedor-datos-center" *ngIf="!register">
-    <div class="lds-ripple"><div></div><div></div></div>
+    <div class="lds-ripple">
+      <div></div>
+      <div></div>
+    </div>
   </div>
 </ng-template>

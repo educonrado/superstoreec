@@ -65,6 +65,10 @@ export class ProductsComponent implements OnInit {
       }
     });
   }
+
+  publicStore() {
+   
+  }
   private deleteProduct(id: string, downloadUrl: string): void {
     this.storeService.deleteProduct(this.uid, id, downloadUrl);
     this.notification(Appsettings.MESSAGE_DELETE);

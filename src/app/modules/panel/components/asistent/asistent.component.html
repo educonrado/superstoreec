@@ -13,7 +13,9 @@
             placeholder="Nombre del negocio"
             formControlName="nameStore"
             required
+            autocomplete="off"
           />
+          <mat-icon matSuffix>business</mat-icon>
           <mat-error
             class="alerta"
             *ngIf="firstFormGroup.controls['nameStore'].hasError('required')"
@@ -34,29 +36,32 @@
             placeholder="superstoreec.app/NombreDelNegocio"
             formControlName="urlStore"
             required
+            autocomplete="off"
+            (change)="validateName($event)"
           />
+          <mat-hint align="start">https://superstore.web.app/{{firstFormGroup.controls['urlStore'].value}}</mat-hint>
+          <mat-icon matSuffix>link</mat-icon>
           <mat-error
             class="alerta"
-            *ngIf="
-              firstFormGroup.controls['urlStore'].hasError('required')
-            "
+            *ngIf="firstFormGroup.controls['urlStore'].hasError('required')"
           >
             Campo requerido
           </mat-error>
           <mat-error
             class="alerta"
-            *ngIf="
-              firstFormGroup.controls['urlStore'].hasError('pattern')
-            "
+            *ngIf="nameExist"
           >
-            Recuerda que tu dirección web solo puede contener números y letras
-            en minúsculas.
+            El nombre para la tienda ya existe, intente nuevamente
           </mat-error>
           <mat-error
             class="alerta"
-            *ngIf="
-              firstFormGroup.controls['urlStore'].hasError('minlength')
-            "
+            *ngIf="firstFormGroup.controls['urlStore'].hasError('pattern')"
+          >
+            Recuerda que tu dirección web solo puede contener números y letras
+          </mat-error>
+          <mat-error
+            class="alerta"
+            *ngIf="firstFormGroup.controls['urlStore'].hasError('minlength')"
           >
             Debe contener al menos 3 caracteres
           </mat-error>
@@ -79,16 +84,25 @@
             name="car"
             required
           >
+            <mat-select-trigger>
+              <span *ngIf="firstFormGroup.controls['category'].value">
+                {{ firstFormGroup.controls["category"].value }}
+              </span>
+            </mat-select-trigger>
             <mat-option value="" selected>Seleccione...</mat-option>
-            <mat-option *ngFor="let category of categorias" [value]="category">
-              {{ category }}
+            <mat-option
+              *ngFor="let category of categorias"
+              [value]="category.nombre"
+            >
+              <span matPrefix style="margin-right: 8px"
+                ><mat-icon>{{ category.icono }}</mat-icon></span
+              >
+              {{ category.nombre }}
             </mat-option>
           </mat-select>
           <mat-error
             class="alerta"
-            *ngIf="
-              firstFormGroup.controls['category'].hasError('required')
-            "
+            *ngIf="firstFormGroup.controls['category'].hasError('required')"
           >
             Campo requerido
           </mat-error>
@@ -141,7 +155,15 @@
         </div>
         <div class="row">
           <div class="col">
-            <button appearance="fill" class="spacer-top" mat-raised-button color="primary" matStepperNext>Siguiente</button>
+            <button
+              appearance="fill"
+              class="spacer-top"
+              mat-raised-button
+              color="primary"
+              matStepperNext
+            >
+              Siguiente
+            </button>
           </div>
         </div>
       </form>
@@ -155,18 +177,24 @@
             matInput
             type="tel"
             formControlName="phoneNumberStore"
-            placeholder="+593990123456"
+            placeholder="593990123456"
             required
           />
+          <mat-icon matSuffix>whatsapp</mat-icon>
           <mat-error
             class="alerta"
-            *ngIf="secondFormGroup.controls['phoneNumberStore'].hasError('required')"
+            *ngIf="
+              secondFormGroup.controls['phoneNumberStore'].hasError('required')
+            "
           >
             Campo requerido
           </mat-error>
           <mat-error
             class="alerta"
-            *ngIf="secondFormGroup.controls['phoneNumberStore'].hasError('pattern')"
+            *ngIf="
+              secondFormGroup.controls['phoneNumberStore'].hasError('pattern') ||
+              secondFormGroup.controls['phoneNumberStore'].hasError('minlength') 
+            "
           >
             Ingrese un número de teléfono válido. Recuerde incluir el código de
             país.

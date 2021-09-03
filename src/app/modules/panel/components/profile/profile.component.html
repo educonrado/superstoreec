@@ -1,7 +1,7 @@
 <div class="contenedor-datos">
   <div class="title-products">
     <h1>Informaci&oacute;n personal</h1>
-  </div>  
+  </div>
   <div class="mat-elevation-z8">
     <form [formGroup]="profileForm" novalidate (ngSubmit)="onSubmit()">
       <mat-card class="personal-information-card">
@@ -14,7 +14,16 @@
                   placeholder="Nombre empresa"
                   formControlName="nameStore"
                   required
+                  maxlength="30"
+                  autocomplete="off"
                 />
+                <mat-icon matSuffix>business</mat-icon>
+                <mat-error
+                  class="alerta"
+                  *ngIf="profileForm.controls['nameStore'].hasError('required')"
+                >
+                  Campo requerido
+                </mat-error>
               </mat-form-field>
             </div>
           </div>
@@ -26,7 +35,23 @@
                   placeholder="URL tienda"
                   formControlName="urlStore"
                   required
+                  maxlength="30"
+                  autocomplete="off"
                 />
+                <mat-hint align="start">https://superstore.web.app/{{profileForm.controls['urlStore'].value}}</mat-hint>
+                <mat-icon matSuffix>link</mat-icon>
+                <mat-error
+                  class="alerta"
+                  *ngIf="profileForm.controls['urlStore'].hasError('required')"
+                >
+                  Campo requerido
+                </mat-error>
+                <mat-error
+                  class="alerta"
+                  *ngIf="profileForm.controls['urlStore'].hasError('pattern')"
+                >
+                  No puede contener símbolos especiales ni espacios
+                </mat-error>
               </mat-form-field>
             </div>
           </div>
@@ -40,7 +65,16 @@
                   type="tel"
                   formControlName="phoneNumberStore"
                   required
+                  maxlength="20"
+                  autocomplete="off"
                 />
+                <mat-icon matSuffix>whatsapp</mat-icon>
+                <mat-error
+                  class="alerta"
+                  *ngIf="profileForm.controls['phoneNumberStore'].hasError('required')"
+                >
+                  Campo requerido
+                </mat-error>
               </mat-form-field>
             </div>
           </div>
@@ -51,7 +85,16 @@
                   matInput
                   placeholder="Nombre administrador"
                   formControlName="manager"
+                  maxlength="50"
+                  autocomplete="off"
                 />
+                <mat-icon matSuffix>manage_accounts</mat-icon>
+                <mat-error
+                  class="alerta"
+                  *ngIf="profileForm.controls['manager'].hasError('required')"
+                >
+                  Campo requerido
+                </mat-error>
               </mat-form-field>
             </div>
           </div>
@@ -62,45 +105,43 @@
                   matInput
                   placeholder="Descripión"
                   formControlName="description"
+                  maxlength="200"
                 ></textarea>
+                <mat-hint align="end">
+                  {{ profileForm.controls["description"].value?.length }} /
+                  200</mat-hint
+                >
               </mat-form-field>
             </div>
           </div>
           <mat-form-field appearance="fill" class="full-width">
             <mat-label>Categoría</mat-label>
-            <mat-select
-              matNativeControl
-              formControlName="category"
-              name="car"
-              required
-            >
+            <mat-select formControlName="category" name="car" required>
+              <mat-select-trigger>
+                <span *ngIf="profileForm.controls['category'].value">
+                  {{ profileForm.controls["category"].value }}
+                </span>
+              </mat-select-trigger>
               <mat-option value="" selected>Seleccione...</mat-option>
-              <mat-option *ngFor="let category of categorias" [value]="category">
-                {{ category }}
+              <mat-option
+                *ngFor="let category of categorias"
+                [value]="category.nombre"
+              >
+                <span matPrefix style="margin-right: 8px"
+                  ><mat-icon>{{ category.icono }}</mat-icon></span
+                >
+                {{ category.nombre }}
               </mat-option>
             </mat-select>
             <mat-error
               class="alerta"
-              *ngIf="
-                profileForm.controls['category'].hasError('required')
-              "
+              *ngIf="profileForm.controls['category'].hasError('required')"
             >
               Campo requerido
             </mat-error>
           </mat-form-field>
-          <div class="row">
-            <div class="col">
-              <mat-form-field class="full-width">
-                <input
-                  matInput
-                  placeholder="Redes sociales"
-                  formControlName="socialNetwork"
-                  required
-                />
-              </mat-form-field>
-            </div>
-          </div>
-          <div class="row">
+          
+          <!-- <div class="row">
             <div class="col">
               <mat-form-field class="full-width">
                 <textarea
@@ -110,7 +151,7 @@
                 ></textarea>
               </mat-form-field>
             </div>
-          </div>
+          </div> -->
           <div class="row">
             <div class="col">
               <div class="uploader">
@@ -158,18 +199,19 @@
             </div>
           </div>
         </mat-card-content>
+
         <mat-card-actions>
           <button
             mat-raised-button
             color="primary"
             type="submit"
-            [disabled]="profileForm.invalid"
+            [disabled]="profileForm.invalid || (profileForm.untouched && !file)"
           >
             Guardar
           </button>
-          
         </mat-card-actions>
       </mat-card>
     </form>
   </div>
 </div>
+<app-spinner [showSpinner]="showSpinner"></app-spinner>

@@ -29,10 +29,11 @@ export class AsistentComponent implements OnInit {
   userUID!: string;
   user: User | undefined;
   selectedCategory: string = '';
-  categorias: string[] = Appsettings.CATEGORIAS;
+  categorias = Appsettings.CATEGORIAS;
   imageURL: string = '';
   file: any;
   showSpinner = false;
+  nameExist = false;
   constructor(
     private formBuilder: FormBuilder,
     private storeService: StoreService,
@@ -87,12 +88,33 @@ export class AsistentComponent implements OnInit {
     this.store.messageClients = Appsettings.MESSAGE_TMP;
     this.store.category = frm1.category;
     this.store.memberType = MemberType.FREE;
-    this.store.products = [];
+    this.store.socialNetwork = this.store.products = [];
+    this.store.socialNetwork = Appsettings.REDES_SOCIALES;
     this.store.imageStore = frm1.imageStore;
     this.storeService
       .createStore(this.userUID, this.store)
       .then(() => console.log)
       .finally(() => (this.showSpinner = false));
+  }
+
+  /**
+   * Validación de nombre de tienda.
+   * TODO modificar para que aparezca mensaje de error en $event chage
+   * @param event 
+   */
+  public validateName(event: any): void {
+
+    if (this.firstFormGroup.controls['urlStore'].valid) {
+      const nameStore = this.firstFormGroup.controls['urlStore'].value;
+      this.storeService.existNameStore(nameStore).then((a) => {
+        console.log(a.size);
+
+        this.nameExist = a.size > 0;
+        console.log(this.nameExist);
+      });
+    } else {
+      this.nameExist = false;
+    }
   }
 
   public previewImage(event: any): void {
@@ -129,7 +151,7 @@ export class AsistentComponent implements OnInit {
         null,
         [
           Validators.required,
-          Validators.pattern('[a-z0-9-]*'),
+          Validators.pattern('[a-zA-Z0-9.]*'),
           Validators.minLength(3),
         ],
       ],
@@ -142,7 +164,11 @@ export class AsistentComponent implements OnInit {
       direction: null,
       phoneNumberStore: [
         this.user?.phoneNumber,
-        [Validators.required, Validators.pattern('[+0-9]+')],
+        [
+          Validators.required,
+          Validators.pattern('[+0-9]+'),
+          Validators.minLength(6),
+        ],
       ],
     });
   }

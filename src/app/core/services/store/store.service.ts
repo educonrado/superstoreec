@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import {
   AngularFirestore,
   AngularFirestoreCollection,
+  QuerySnapshot,
 } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Appsettings } from '@data/constants/appsettings';
 import { Product } from '@data/model/product';
 import { Store } from '@data/model/store';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { FirebaseService } from '../firebase/firebase.service';
 
 @Injectable({
   providedIn: 'root',
@@ -31,7 +33,7 @@ export class StoreService {
    */
   constructor(
     private angularFirestore: AngularFirestore,
-    private angularFirestorage: AngularFireStorage
+    private angularFirestorage: AngularFireStorage,
   ) {
     this.clientsRef = this.angularFirestore.collection(Appsettings.PATH_STORES);
     this.store = new Observable<Store>();
@@ -146,4 +148,9 @@ export class StoreService {
         .delete();
     }
   }
+
+  public existNameStore(nameStore:string): Promise<QuerySnapshot<Store>> {
+    return this.clientsRef.ref.where('urlStore', '==', nameStore).get();
+  }
+
 }
