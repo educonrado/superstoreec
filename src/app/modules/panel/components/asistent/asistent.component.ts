@@ -102,7 +102,7 @@ export class AsistentComponent implements OnInit {
    * TODO modificar para que aparezca mensaje de error en $event chage
    * @param event 
    */
-  public validateName(event: any): void {
+ /*/ public validateName(event: any): void {
 
     if (this.firstFormGroup.controls['urlStore'].valid) {
       const nameStore = this.firstFormGroup.controls['urlStore'].value;
@@ -115,7 +115,7 @@ export class AsistentComponent implements OnInit {
     } else {
       this.nameExist = false;
     }
-  }
+  }*/
 
   public previewImage(event: any): void {
     this.file = event.target.files[0];
@@ -149,11 +149,17 @@ export class AsistentComponent implements OnInit {
       nameStore: [null, [Validators.required, Validators.minLength(3)]],
       urlStore: [
         null,
-        [
-          Validators.required,
-          Validators.pattern('[a-zA-Z0-9.]*'),
-          Validators.minLength(3),
-        ],
+        {
+          validators: 
+          [
+            Validators.required,
+            Validators.pattern('[a-zA-Z0-9.]*'),
+            Validators.minLength(3),
+          ],
+          asyncValidators: [this.storeService.nameStoreValidators()],
+          // Tipo de actualización
+          // updateOn: 'blur'
+        }
       ],
       description: null,
       imageStore: [null, Validators.required],

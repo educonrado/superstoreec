@@ -134,7 +134,20 @@ export class ProfileComponent implements OnInit {
   private createFormProfile(): void {
     this.profileForm = this.formBuilder.group({
       nameStore: [null, Validators.required],
-      urlStore: [null, [Validators.required, Validators.pattern('[a-zA-Z.]*')]],
+      urlStore: [
+        null,
+        {
+          validators: 
+          [
+            Validators.required,
+            Validators.pattern('[a-zA-Z0-9.]*'),
+            Validators.minLength(3),
+          ],
+          asyncValidators: [this.storeService.nameStoreValidators()],
+          // Tipo de actualización
+          // updateOn: 'blur'
+        }
+      ],
       phoneNumberStore: [null, Validators.required],
       manager: [null, Validators.required],
       description: null,

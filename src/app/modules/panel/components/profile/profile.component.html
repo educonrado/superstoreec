@@ -38,7 +38,11 @@
                   maxlength="30"
                   autocomplete="off"
                 />
-                <mat-hint align="start">https://superstore.web.app/{{profileForm.controls['urlStore'].value}}</mat-hint>
+                <mat-hint align="start"
+                  >https://superstore.web.app/{{
+                    profileForm.controls["urlStore"].value
+                  }}</mat-hint
+                >
                 <mat-icon matSuffix>link</mat-icon>
                 <mat-error
                   class="alerta"
@@ -51,6 +55,21 @@
                   *ngIf="profileForm.controls['urlStore'].hasError('pattern')"
                 >
                   No puede contener símbolos especiales ni espacios
+                </mat-error>
+                <mat-error
+                  class="alerta"
+                  *ngIf="profileForm.controls['urlStore'].hasError('minlength')"
+                >
+                  Debe contener al menos 3 caracteres
+                </mat-error>
+                <mat-error
+                  class="alerta"
+                  *ngIf="
+                    profileForm.controls['urlStore'].hasError('nameStoreExists')
+                  "
+                >
+                  El nombre para tu página web ya existe, por favor intenta
+                  nuevamente
                 </mat-error>
               </mat-form-field>
             </div>
@@ -71,7 +90,11 @@
                 <mat-icon matSuffix>whatsapp</mat-icon>
                 <mat-error
                   class="alerta"
-                  *ngIf="profileForm.controls['phoneNumberStore'].hasError('required')"
+                  *ngIf="
+                    profileForm.controls['phoneNumberStore'].hasError(
+                      'required'
+                    )
+                  "
                 >
                   Campo requerido
                 </mat-error>
@@ -140,7 +163,7 @@
               Campo requerido
             </mat-error>
           </mat-form-field>
-          
+
           <!-- <div class="row">
             <div class="col">
               <mat-form-field class="full-width">

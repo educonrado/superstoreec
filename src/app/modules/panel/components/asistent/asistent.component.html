@@ -37,7 +37,7 @@
             formControlName="urlStore"
             required
             autocomplete="off"
-            (change)="validateName($event)"
+            
           />
           <mat-hint align="start">https://superstore.web.app/{{firstFormGroup.controls['urlStore'].value}}</mat-hint>
           <mat-icon matSuffix>link</mat-icon>
@@ -46,12 +46,6 @@
             *ngIf="firstFormGroup.controls['urlStore'].hasError('required')"
           >
             Campo requerido
-          </mat-error>
-          <mat-error
-            class="alerta"
-            *ngIf="nameExist"
-          >
-            El nombre para la tienda ya existe, intente nuevamente
           </mat-error>
           <mat-error
             class="alerta"
@@ -64,6 +58,12 @@
             *ngIf="firstFormGroup.controls['urlStore'].hasError('minlength')"
           >
             Debe contener al menos 3 caracteres
+          </mat-error>
+          <mat-error
+            class="alerta"
+            *ngIf="firstFormGroup.controls['urlStore'].hasError('nameStoreExists')"
+          >
+            El nombre para tu página web ya existe, por favor intenta nuevamente
           </mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill" class="full-width">

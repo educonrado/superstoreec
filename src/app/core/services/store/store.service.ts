@@ -3,20 +3,24 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
   QuerySnapshot,
+  SnapshotOptions,
 } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
+import {
+  AbstractControl,
+  AsyncValidatorFn,
+  ValidationErrors,
+} from '@angular/forms';
 import { Appsettings } from '@data/constants/appsettings';
 import { Product } from '@data/model/product';
 import { Store } from '@data/model/store';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { FirebaseService } from '../firebase/firebase.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StoreService {
-    
   store: Observable<Store | undefined>;
   products!: Observable<Product[]>;
   private clientsRef: AngularFirestoreCollection<Store>;
@@ -25,15 +29,15 @@ export class StoreService {
   loadStoreObservable = this.storeSubject.asObservable();
   private productsSubject = new Subject<Product>();
   loadProductObservanle = this.productsSubject.asObservable();
-  
+
   /**
-   * 
-   * @param angularFirestore 
-   * @param angularFirestorage 
+   *
+   * @param angularFirestore
+   * @param angularFirestorage
    */
   constructor(
     private angularFirestore: AngularFirestore,
-    private angularFirestorage: AngularFireStorage,
+    private angularFirestorage: AngularFireStorage
   ) {
     this.clientsRef = this.angularFirestore.collection(Appsettings.PATH_STORES);
     this.store = new Observable<Store>();
@@ -55,9 +59,9 @@ export class StoreService {
   public async getStore(uid: string): Promise<any> {
     const storeDoc = this.clientsRef.doc(uid);
     this.store = storeDoc.valueChanges();
-    this.store.subscribe(st=>{
+    this.store.subscribe((st) => {
       this.cargarDataTienda(st as Store);
-    }) ;
+    });
   }
 
   private cargarDataTienda(store: Store) {
@@ -93,7 +97,6 @@ export class StoreService {
         map((actions) => actions.map((a) => a.payload.doc.data() as Store))
       );
   }*/
-
 
   /**
    * Métodos crud de producto
@@ -149,8 +152,24 @@ export class StoreService {
     }
   }
 
-  public existNameStore(nameStore:string): Promise<QuerySnapshot<Store>> {
+  /**
+   * Consulta a firestore de tiendas con el mismo nombre que el parámetro ingresado
+   * @param nameStore 
+   * @returns 
+   */
+  private namesStoresSame(nameStore: string): Promise<QuerySnapshot<Store>> {
     return this.clientsRef.ref.where('urlStore', '==', nameStore).get();
   }
 
+  /**
+   * Validator existe o no el mismo nombre de store en firebase
+   * @returns 
+   */
+  public nameStoreValidators(): AsyncValidatorFn {
+    return (control: AbstractControl): Promise<ValidationErrors | null> => {
+      return this.namesStoresSame(control.value).then((res) => {
+        return res.size > 0 ? { nameStoreExists: true } : null;
+      });
+    };
+  }
 }

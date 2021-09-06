@@ -24,6 +24,7 @@ export class NavigationComponent {
     );
   name: string = '';
   numNotification = 0;
+  unregister = true;
 
   constructor(
     private breakpointObserver: BreakpointObserver,

@@ -8,14 +8,14 @@
     [opened]="(isHandset$ | async) === false"
   >
     <mat-toolbar>Menu </mat-toolbar>
-    <mat-nav-list>
+    <mat-nav-list [disabled]="unregister">
       <!--<a mat-list-item routerLink="dashboard">Dashboard</a>-->
       <a mat-list-item routerLink="products">Productos</a>
       <a mat-list-item routerLink="about">Acerca</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar color="primary">
+    <mat-toolbar color="primary" >
       <button
         type="button"
         aria-label="Toggle sidenav"
@@ -34,11 +34,11 @@
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item routerLink="notification" >
+        <button mat-menu-item routerLink="notification" [disabled]="unregister">
           <mat-icon [matBadge]="numNotification" matBadgePosition="after" matBadgeColor="accent">notifications</mat-icon>
           <span>Notificaciones</span>
         </button>
-        <button mat-menu-item routerLink="profile">
+        <button mat-menu-item routerLink="profile" [disabled]="unregister">
           <mat-icon>manage_accounts</mat-icon>
           <span>Perf&iacute;l</span>
         </button>
