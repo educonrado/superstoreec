@@ -24,7 +24,6 @@ export class NavigationComponent {
     );
   name: string = '';
   numNotification = 0;
-  unregister = true;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -36,6 +35,7 @@ export class NavigationComponent {
     this.authService.getCurrentUser().then((user:any)=>{
       this.storeService.getStore(user.uid);
     });
+
   }
 
   openAsistent(): any {

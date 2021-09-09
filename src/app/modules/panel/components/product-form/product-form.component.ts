@@ -1,4 +1,10 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -50,28 +56,43 @@ export class ProductFormComponent implements OnInit, OnDestroy {
   }
 
   fetchProduct(uid: string, id: string): void {
-    this.subciption$ = this.storeService.getProduct(uid, id).subscribe((prod: Product) => {
-      if (prod === undefined) {
-        this.redirectAdmin();
-      } else {
-        this.productForm.patchValue(prod);
-        this.loadImage();
-      }
-    });
+    this.subciption$ = this.storeService
+      .getProduct(uid, id)
+      .subscribe((prod: Product) => {
+        if (prod === undefined) {
+          this.redirectAdmin();
+        } else {
+          this.productForm.patchValue(prod);
+          this.loadImage();
+          this.imageURL = this.productForm.controls['image'].value;
+        }
+      });
   }
 
   onSubmit(): void {
-    if (this.productForm.valid && this.file) {
-      this.saveProduct(this.file);
-    } 
+    if (this.productForm.valid) {
+      if ((this.titulo && this.file) || (!this.titulo && this.file)) {
+        this.saveProduct(this.file);
+      } else {
+        this.updateProductForm();
+      }
+    }
   }
 
   private updateProductForm() {
-    this.storeService.updateProduct(
-      this.uid,
-      this.id,
-      this.productForm.value
-    );
+    try {
+      this.showSpinner = true;
+      this.storeService.updateProduct(
+        this.uid,
+        this.id,
+        this.productForm.value
+      );
+    } catch (error) {
+      console.log(error);
+    } finally {
+      this.redirectAdmin();
+      this.showSpinner = false;
+    }
   }
 
   /**
@@ -175,5 +196,5 @@ export class ProductFormComponent implements OnInit, OnDestroy {
     if (!this.titulo) {
       this.subciption$.unsubscribe();
     }
-   }
+  }
 }

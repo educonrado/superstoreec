@@ -2,6 +2,7 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { AuthService } from '@core/services/auth/auth.service';
 import { StoreService } from '@core/services/store/store.service';
 import { Appsettings } from '@data/constants/appsettings';
@@ -37,6 +38,7 @@ export class ProfileComponent implements OnInit {
     private storeService: StoreService,
     private authService: AuthService,
     private angularFirestorage: AngularFireStorage,
+    private router: Router,
     private matSnackBar: MatSnackBar
   ) {
     this.createFormProfile();
@@ -44,9 +46,13 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.store = this.storeService.tienda;
-    this.profileForm.patchValue(this.store);
-    this.imageURL = this.profileForm.controls['imageStore'].value;    
-    this.getUser();
+    if (this.store === undefined) {
+      this.router.navigate([Appsettings.RUTA_ADMIN]);
+    } else {
+      this.profileForm.patchValue(this.store);
+      this.imageURL = this.profileForm.controls['imageStore'].value;
+      this.getUser();
+    }
   }
 
   onSubmit(): void {
@@ -67,7 +73,8 @@ export class ProfileComponent implements OnInit {
    */
   private updateProfile(file: any): void {
     this.showSpinner = true;
-    const dirTmpImg = Appsettings.PATH_STORAGE_IMAGES + this.userUID + Appsettings.PATH_LOGO;
+    const dirTmpImg =
+      Appsettings.PATH_STORAGE_IMAGES + this.userUID + Appsettings.PATH_LOGO;
     const fileRef = this.angularFirestorage.ref(dirTmpImg);
     const task = this.angularFirestorage.upload(dirTmpImg, file);
     task
@@ -137,8 +144,7 @@ export class ProfileComponent implements OnInit {
       urlStore: [
         null,
         {
-          validators: 
-          [
+          validators: [
             Validators.required,
             Validators.pattern('[a-zA-Z0-9.]*'),
             Validators.minLength(3),
@@ -146,7 +152,7 @@ export class ProfileComponent implements OnInit {
           asyncValidators: [this.storeService.nameStoreValidators()],
           // Tipo de actualización
           // updateOn: 'blur'
-        }
+        },
       ],
       phoneNumberStore: [null, Validators.required],
       manager: [null, Validators.required],

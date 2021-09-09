@@ -97,26 +97,6 @@ export class AsistentComponent implements OnInit {
       .finally(() => (this.showSpinner = false));
   }
 
-  /**
-   * Validación de nombre de tienda.
-   * TODO modificar para que aparezca mensaje de error en $event chage
-   * @param event 
-   */
- /*/ public validateName(event: any): void {
-
-    if (this.firstFormGroup.controls['urlStore'].valid) {
-      const nameStore = this.firstFormGroup.controls['urlStore'].value;
-      this.storeService.existNameStore(nameStore).then((a) => {
-        console.log(a.size);
-
-        this.nameExist = a.size > 0;
-        console.log(this.nameExist);
-      });
-    } else {
-      this.nameExist = false;
-    }
-  }*/
-
   public previewImage(event: any): void {
     this.file = event.target.files[0];
     if (this.file.type.includes('image')) {

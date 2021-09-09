@@ -88,16 +88,18 @@
             <input type="hidden" name="fileHidden" formControlName="image" />
             <label for="file-upload" id="file-drag">
               <img
-                *ngIf="imageURL && imageURL !== ''"
-                [src]="imageURL"
-                alt="Preview"
                 class="hidden file-image"
-              />
-              <img
-                class="hidden file-image"
-                *ngIf="image$ | async as image"
+                *ngIf="image$ | async as image; else preview"
                 [src]="image"
               />
+              <ng-template #preview>
+                <img
+                  class="hidden file-image"
+                  *ngIf="imageURL as image"
+                  [src]="image"
+                />
+              </ng-template>
+
               <div id="start">
                 <div *ngIf="!imageURL && imageURL === ''">
                   <mat-icon aria-hidden="true">cloud_upload</mat-icon>
@@ -134,7 +136,7 @@
         mat-raised-button
         color="primary"
         type="submit"
-        [disabled]="productForm.invalid || !productForm.touched && !file"
+        [disabled]="productForm.invalid || (!productForm.touched && !file)"
       >
         Guardar
       </button>
