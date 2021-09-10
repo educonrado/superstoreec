@@ -8,6 +8,7 @@ import { StoreService } from '@core/services/store/store.service';
 import { Appsettings } from '@data/constants/appsettings';
 import { Store } from '@data/model/store';
 import { NotificationComponent } from '@shared/components/notification/notification.component';
+import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 @Component({
   selector: 'app-profile',
@@ -25,6 +26,8 @@ export class ProfileComponent implements OnInit {
   userUID: string = '';
   showSpinner = false;
   socials!: [];
+  image$!: Observable<any>;
+  private tmpUrlStore = '';
 
   /**
    *
@@ -47,23 +50,42 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.store = this.storeService.tienda;
     if (this.store === undefined) {
-      this.router.navigate([Appsettings.RUTA_ADMIN]);
+      this.redirectTo();
     } else {
       this.profileForm.patchValue(this.store);
+      this.tmpUrlStore = this.profileForm.controls['urlStore'].value;
       this.imageURL = this.profileForm.controls['imageStore'].value;
       this.getUser();
     }
   }
 
+  private redirectTo() {
+    this.router.navigate([Appsettings.RUTA_ADMIN]);
+  }
+
   onSubmit(): void {
     if (this.profileForm.valid) {
-      this.updateProfile(this.file);
+      if (this.tmpUrlStore === this.profileForm.controls['urlStore'].value) {
+        if (this.file) {
+          this.updateProfileImage(this.file);
+        } else {
+          this.updateProfile();
+        }
+        this.redirectTo();
+      } else {
+        console.log('Diferente');
+      }
     }
   }
 
+  private updateProfile(): void {
+    this.storeService.createStore(this.userUID, this.profileForm.value);
+    this.notification('Perfil actualizado correctamente');
+  }
   private getUser(): void {
     this.authService.getUid().subscribe((userResponse: any) => {
       this.userUID = userResponse.uid;
+      this.loadImage(userResponse.uid);
     });
   }
 
@@ -71,7 +93,7 @@ export class ProfileComponent implements OnInit {
    *
    * @param file
    */
-  private updateProfile(file: any): void {
+  private updateProfileImage(file: any): void {
     this.showSpinner = true;
     const dirTmpImg =
       Appsettings.PATH_STORAGE_IMAGES + this.userUID + Appsettings.PATH_LOGO;
@@ -84,11 +106,7 @@ export class ProfileComponent implements OnInit {
           fileRef.getDownloadURL().subscribe((url) => {
             this.profileForm.controls['imageStore'].setValue(url);
             try {
-              this.storeService.createStore(
-                this.userUID,
-                this.profileForm.value
-              );
-              this.notification('Perfil actualizado correctamente');
+              this.updateProfile();
             } catch (error) {
               console.log(error);
             } finally {
@@ -110,6 +128,7 @@ export class ProfileComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = () => {
         this.imageURL = reader.result as string;
+        this.image$ = new Observable<any>();
       };
       reader.readAsDataURL(this.file);
       this.profileForm.controls['imageStore'].setValue(
@@ -122,6 +141,16 @@ export class ProfileComponent implements OnInit {
       this.profileForm.controls['imageStore'].setValue('');
       alert('Debe escoger una imagen válida');
     }
+  }
+
+  /**
+   * Cargar imagen
+   */
+  public async loadImage(uid: string): Promise<void> {
+    const fileRef = this.angularFirestorage.ref(
+      'images/' + `${uid}` + '/' + Appsettings.PATH_LOGO
+    );
+    this.image$ = fileRef.getDownloadURL();
   }
 
   /**
@@ -143,16 +172,11 @@ export class ProfileComponent implements OnInit {
       nameStore: [null, Validators.required],
       urlStore: [
         null,
-        {
-          validators: [
-            Validators.required,
-            Validators.pattern('[a-zA-Z0-9.]*'),
-            Validators.minLength(3),
-          ],
-          asyncValidators: [this.storeService.nameStoreValidators()],
-          // Tipo de actualización
-          // updateOn: 'blur'
-        },
+        [
+          Validators.required,
+          Validators.pattern('[a-zA-Z0-9.]*'),
+          Validators.minLength(3),
+        ],
       ],
       phoneNumberStore: [null, Validators.required],
       manager: [null, Validators.required],

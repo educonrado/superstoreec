@@ -80,7 +80,7 @@
                 <input
                   matInput
                   maxlength="15"
-                  placeholder="Whatsapp para recibir compras"
+                  placeholder="Whatsapp para recibir ventas"
                   type="tel"
                   formControlName="phoneNumberStore"
                   required
@@ -194,11 +194,17 @@
                 />
                 <label for="file-upload" id="file-drag">
                   <img
-                    *ngIf="imageURL && imageURL !== ''"
-                    [src]="imageURL"
-                    alt="Preview"
                     class="hidden file-image"
+                    *ngIf="image$ | async as image; else preview"
+                    [src]="image"
                   />
+                  <ng-template #preview>
+                    <img
+                      class="hidden file-image"
+                      *ngIf="imageURL as image"
+                      [src]="image"
+                    />
+                  </ng-template>
                   <div id="start">
                     <div *ngIf="!imageURL && imageURL === ''">
                       <mat-icon aria-hidden="true">cloud_upload</mat-icon>

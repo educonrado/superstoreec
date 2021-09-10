@@ -4,13 +4,15 @@ export class Appsettings {
   // Mensajes
   public static MESSAGE_DELETE = 'El producto fue eliminado correctamente';
   public static MESSAGE_PRODUCT = 'Producto';
-  public static MESSAGE_PRODUCT_DELETE = '¿Desea eliminar el producto?';
+  public static MESSAGE_PRODUCT_DELETE = '¿Eliminar producto?';
+  public static MESSAGE_PUBLISH_STORE = 'Todo listo 👌';
   public static MESSAGE_ERROR_LOGIN = 'Usuario y/o contraseña incorrectos.';
   public static MESSAGE_ERROR_REGISTER =
     'Se produjo un error en su registro\n Vuelva a intentar!';
   public static MESSAGE_SUCCESS_REGISTER = 'Registro exitoso!';
   // Botones
   public static BTN_DELETE = 'Eliminar';
+  public static BTN_PUBLISH = 'Publicar';
   public static BTN_CANCEL = 'Cancelar';
   // Rutas
   public static RUTA_LOGIN = '/user/login';
@@ -38,7 +40,7 @@ export class Appsettings {
     { Facebook: false },
     { Instagram: false },
     { Tiktok: false },
-    { Youtube: false }
+    { Youtube: false },
   ];
 
   public static SOCIAL_NETWORK = [

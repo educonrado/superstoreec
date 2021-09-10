@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@modules/material/material.module';
 
 import * as fromComponents from './components';
+import { DialogPublishComponent } from './components/dialog-publish/dialog-publish.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import * as fromComponents from './components';
     RouterModule
   ],
   declarations: [
-    ...fromComponents.components
+    ...fromComponents.components,
+    DialogPublishComponent
   ],
   exports: [
     FormsModule,
