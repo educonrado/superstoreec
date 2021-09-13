@@ -7,6 +7,8 @@ export class Appsettings {
   public static MESSAGE_PRODUCT_DELETE = '¿Eliminar producto?';
   public static MESSAGE_PUBLISH_STORE = 'Todo listo 👌';
   public static MESSAGE_ERROR_LOGIN = 'Usuario y/o contraseña incorrectos.';
+  public static MESSAGE_ERROR_NETWORK = 'Verifique su conexión a internet e vuelva a internar.';
+  public static MESSAGE_ERROR_POPUP_CLOSE = 'No se pudo validar su cuenta de Google por un cierre inesperado del pop-up. \nIntente nuevamente.';
   public static MESSAGE_ERROR_REGISTER =
     'Se produjo un error en su registro\n Vuelva a intentar!';
   public static MESSAGE_SUCCESS_REGISTER = 'Registro exitoso!';
@@ -19,9 +21,11 @@ export class Appsettings {
   public static RUTA_ADMIN = '/panel/products';
   // Path Realtime firebase
   public static PATH_STORES = '/stores';
+  public static PATH_STORES_VERIFIED = '/stores-verified';
   public static PATH_PRODUCTS = 'products';
   public static PATH_STORAGE_IMAGES = 'images/';
   public static PATH_LOGO = '/logo';
+  public static PATH_TIENDA_VERIFIED = 'https://superstore.web.app/';
   // Listado de categorías de tiendas
   public static CATEGORIAS = [
     { nombre: 'Alimentos', icono: 'restaurant' },

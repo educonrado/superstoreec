@@ -3,7 +3,6 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
   QuerySnapshot,
-  SnapshotOptions,
 } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import {
@@ -13,7 +12,7 @@ import {
 } from '@angular/forms';
 import { Appsettings } from '@data/constants/appsettings';
 import { Product } from '@data/model/product';
-import { Store } from '@data/model/store';
+import { StateType, Store } from '@data/model/store';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -27,9 +26,6 @@ export class StoreService {
   tienda!: Store;
   private storeSubject = new Subject<Store>();
   loadStoreObservable = this.storeSubject.asObservable();
-  private productsSubject = new Subject<Product>();
-  loadProductObservanle = this.productsSubject.asObservable();
-
   /**
    *
    * @param angularFirestore
@@ -50,6 +46,17 @@ export class StoreService {
    */
   public async createStore(userUid: string, store: Store): Promise<void> {
     await this.clientsRef.doc(userUid).set(store);
+  }
+
+  /**
+   *
+   * @param userUid
+   * @param state
+   */
+  public async updateStore(userUid: string, state: StateType): Promise<void> {
+    await this.clientsRef.doc(userUid).update({
+      state: state,
+    });
   }
 
   /**
@@ -154,8 +161,8 @@ export class StoreService {
 
   /**
    * Consulta a firestore de tiendas con el mismo nombre que el parámetro ingresado
-   * @param nameStore 
-   * @returns 
+   * @param nameStore
+   * @returns
    */
   private namesStoresSame(nameStore: string): Promise<QuerySnapshot<Store>> {
     return this.clientsRef.ref.where('urlStore', '==', nameStore).get();
@@ -163,7 +170,7 @@ export class StoreService {
 
   /**
    * Validator existe o no el mismo nombre de store en firebase
-   * @returns 
+   * @returns
    */
   public nameStoreValidators(): AsyncValidatorFn {
     return (control: AbstractControl): Promise<ValidationErrors | null> => {

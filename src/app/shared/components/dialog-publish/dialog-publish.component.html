@@ -2,25 +2,21 @@
   <mat-card class="example-card">
     <mat-card-header>
       <img
+        *ngIf="data.imageStore"
         mat-card-avatar
         [src]="data.imageStore"
         alt="Logo"
         class="store-header-image"
+        loading="lazy"
       />
-
       <mat-card-title>{{ data.nameStore }}</mat-card-title>
       <mat-card-subtitle
+        matTooltip="Url inactiva mientras no se publique la tienda"
         ><a [href]="data.urStore" target="_blanck">{{
           data.urStore
         }}</a></mat-card-subtitle
       >
     </mat-card-header>
-
-    <mat-card-content>
-      <p>
-        {{ data.description }}
-      </p>
-    </mat-card-content>
   </mat-card>
 </mat-dialog-content>
 <mat-dialog-actions align="center">

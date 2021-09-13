@@ -39,14 +39,18 @@ export class LoginComponent implements OnInit {
         .login(value.email, value.password)
         .then(() => {
           this.router.navigate([Appsettings.RUTA_ADMIN]);
-          this.ocultarSpinner();
         })
-        .catch(() => {
-          this.notificationError(Appsettings.MESSAGE_ERROR_LOGIN);
+        .catch((err: any) => {
+          if (err.message.includes('interrupted connection')) {
+            this.notificationError(Appsettings.MESSAGE_ERROR_NETWORK);
+          } else {
+            this.notificationError(Appsettings.MESSAGE_ERROR_LOGIN);
+          }
+        })
+        .finally(() => {
           this.formLogin.reset();
           this.ocultarSpinner();
-        })
-        .finally(() => this.ocultarSpinner());
+        });
     }
   }
 
@@ -57,11 +61,17 @@ export class LoginComponent implements OnInit {
       this.authService.loginGoogle().then(() => {
         this.ngZone.run(() => {
           this.router.navigate([Appsettings.RUTA_ADMIN]);
-          this.ocultarSpinner();
         });
+      }).catch((err:any)=>{
+        if (err.code === 'auth/popup-closed-by-user') {
+          this.notificationError(Appsettings.MESSAGE_ERROR_POPUP_CLOSE);
+        } else {
+          this.notificationError(Appsettings.MESSAGE_ERROR_LOGIN);
+        }
       });
-    } catch (error) {
+    } catch (err) {
       this.notificationError(Appsettings.MESSAGE_ERROR_LOGIN);
+    } finally {
       this.formLogin.reset();
       this.ocultarSpinner();
     }

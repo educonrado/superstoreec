@@ -12,11 +12,18 @@ export interface Store {
     messageClients?: string;
     category?: string;
     memberType?: string;
-    imageStore?: string; 
-
+    imageStore?: string;
+    color?:string;
+    fechaAlta?: Date;
+    state?:string;
 }
 
 export enum MemberType {
     'FREE' = 'FREE', 
     'PAY' = 'PAY'
+}
+
+export enum StateType {
+    'EDITION' = 'EDITION',
+    'PUBLISHED' = 'PUBLISHED'
 }

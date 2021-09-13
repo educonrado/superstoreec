@@ -2,8 +2,17 @@
   class="contenedor-datos"
   *ngIf="products$ | async as products; else asistente"
 >
-  <div class="title-products">
-    <h1>Listado de productos({{ products?.length }})</h1>
+  <div class="title-products" >
+    <h1 >
+      Listado de productos({{ products?.length }})
+      <a *ngIf="store$ | async as store; ">
+        <span [ngSwitch]="store.state">
+          <span class="pill-badge success" *ngSwitchCase="'PUBLISHED'">Publicado</span>
+          <span class="pill-badge info" *ngSwitchCase="'EDITION'">Edición</span>
+        </span>
+      </a>
+      
+    </h1>
     <div>
       <button
         *ngIf="products.length > 0"
@@ -12,6 +21,7 @@
         aria-label="Publicar tienda"
         matTooltip="Publicar tienda"
         (click)="publishStore()"
+        
       >
         <mat-icon>publish</mat-icon>
       </button>
@@ -27,7 +37,8 @@
     </div>
   </div>
   <div class="contenedor-datos-center" *ngIf="products.length === 0">
-    Comencemos agregando productos
+    <p>Comencemos agregando productos</p>
+    <mat-icon>inventory_2</mat-icon>
   </div>
   <div class="mat-elevation-z8" *ngIf="products.length > 0">
     <table
@@ -80,6 +91,7 @@
     </mat-paginator>
   </div>
 </div>
+<app-spinner [showSpinner]="showSpinner"></app-spinner>
 <ng-template #asistente>
   <div class="contenedor-datos" *ngIf="register">
     <app-asistent></app-asistent>

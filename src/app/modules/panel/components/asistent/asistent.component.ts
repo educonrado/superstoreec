@@ -11,7 +11,7 @@ import {
 import { AuthService } from '@core/services/auth/auth.service';
 import { StoreService } from '@core/services/store/store.service';
 import { Appsettings } from '@data/constants/appsettings';
-import { MemberType, Store } from '@data/model/store';
+import { MemberType, StateType, Store } from '@data/model/store';
 import User from '@data/model/user';
 import { finalize, tap } from 'rxjs/operators';
 
@@ -91,6 +91,8 @@ export class AsistentComponent implements OnInit {
     this.store.socialNetwork = this.store.products = [];
     this.store.socialNetwork = Appsettings.REDES_SOCIALES;
     this.store.imageStore = frm1.imageStore;
+    this.store.fechaAlta = new Date();
+    this.store.state = StateType.EDITION;
     this.storeService
       .createStore(this.userUID, this.store)
       .then(() => console.log)
