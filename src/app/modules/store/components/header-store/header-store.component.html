@@ -1,0 +1,13 @@
+<mat-toolbar  class="display-flex-header">
+  <div class="image-cropper circle">
+    <img class="img-store" *ngIf="imageStore" [src]="image$ | async" alt="Logo"/>
+  </div>
+  <h1>{{ nameStore }} </h1>
+  <button
+    mat-icon-button
+    class="example-icon"
+    aria-label="Example icon-button with share icon"
+  >
+    <mat-icon [matBadge]="0" matBadgeColor="accent">shopping_cart</mat-icon>
+  </button>
+</mat-toolbar>

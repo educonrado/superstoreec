@@ -1,0 +1,36 @@
+footer {
+  background-color: rgb(255, 255, 255);
+}
+
+footer > div > article {
+  font-size: 10px !important;
+}
+
+footer > div > article > ul {
+  list-style-type: none;
+  display: inline;
+}
+
+footer > div > article > ul > li > a,
+footer > div > article > ul > li > a::after,
+footer > div > article > ul > li > a::before,
+footer > div > article > a {
+  text-decoration-style: none;
+  text-decoration: none;
+  color: #3f51b5;
+  
+}
+
+.display-flex-footer {
+  display: block;
+  text-align: center;
+  align-items: center;
+}
+
+@media (min-width: 600px) {
+  .display-flex-footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+}

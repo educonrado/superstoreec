@@ -61,9 +61,6 @@ img {
     opacity: 0;
   }
 }
-.space-left {
-  margin-left: 10px;
-}
 
 .success {
   background-color: #3F51B5 !important;
@@ -86,3 +83,11 @@ img {
   background-color: #FF4081 !important;
   color: #fff !important;
 }
+
+
+@media (min-width: 600px) {
+  .space-left {
+    margin-left: 10px;
+  }
+}
+

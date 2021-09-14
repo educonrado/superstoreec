@@ -106,6 +106,7 @@ export class ProductsComponent implements OnInit {
     // this.storeVerified.socialNetwork = store.socialNetwork;
     this.storeVerified.category = store.category;
     this.storeVerified.state = StateType.PUBLISHED;
+    this.storeVerified.memberType = store.memberType;
     const prods = this.storeService.products;
     prods.subscribe((prods) => {
       this.storeVerified.products = prods;
