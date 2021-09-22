@@ -1,13 +1,17 @@
-<mat-toolbar  class="display-flex-header">
-  <div class="image-cropper circle">
-    <img class="img-store" *ngIf="imageStore" [src]="image$ | async" alt="Logo"/>
+<mat-toolbar class="display-flex-header color--resaltar">
+  <div class="card--header">
+    <div class="circular--landscape">
+      <img class="img-store" [src]="image$ | async" alt="Logo" loading="lazy"/>
+    </div>
+    <h1 class="title--store">{{ nameStore }}<sub>Store</sub> </h1>
   </div>
-  <h1>{{ nameStore }} </h1>
-  <button
+  <div class="card--button">
+    <button
     mat-icon-button
-    class="example-icon"
-    aria-label="Example icon-button with share icon"
+    aria-label="Botón de carrito de compras con icono cart"
   >
-    <mat-icon [matBadge]="0" matBadgeColor="accent">shopping_cart</mat-icon>
+    <mat-icon [matBadge]="0" matBadgeColor="accent" matBadgeOverlap="true">shopping_cart</mat-icon>
   </button>
+  </div>
+  
 </mat-toolbar>

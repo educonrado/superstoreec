@@ -6,7 +6,7 @@ import { StoreVerifiedService } from '@core/services/store-verified/store-verifi
 import { StoreService } from '@core/services/store/store.service';
 import { Appsettings } from '@data/constants/appsettings';
 import { Product } from '@data/model/product';
-import { StateType, Store } from '@data/model/store';
+import { MemberType, StateType, Store } from '@data/model/store';
 import { DialogPublishComponent } from '@shared/components/dialog-publish/dialog-publish.component';
 import { DialogComponent } from '@shared/components/dialog/dialog.component';
 import { NotificationComponent } from '@shared/components/notification/notification.component';
@@ -98,6 +98,8 @@ export class ProductsComponent implements OnInit {
   }
   private async createStoreVerified(): Promise<void> {
     const store = this.storeService.tienda;
+    console.log(store.memberType);
+    
     this.storeVerified.nameStore = store.nameStore;
     this.storeVerified.urlStore = store.urlStore;
     this.storeVerified.imageStore = store.imageStore;
@@ -106,7 +108,7 @@ export class ProductsComponent implements OnInit {
     // this.storeVerified.socialNetwork = store.socialNetwork;
     this.storeVerified.category = store.category;
     this.storeVerified.state = StateType.PUBLISHED;
-    this.storeVerified.memberType = store.memberType;
+    
     const prods = this.storeService.products;
     prods.subscribe((prods) => {
       this.storeVerified.products = prods;

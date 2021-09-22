@@ -1,14 +1,19 @@
 <div class="contenedor-datos">
   <div class="carrousel">
       Título
-      <img src="a.jpg" alt="">
-      <img src="a.jpg" alt="">
-      <img src="a.jpg" alt="">
+      <img width="100px" height="100px" src="https://firebasestorage.googleapis.com/v0/b/superstoreec.appspot.com/o/images%2FLX0ld88IdTSAM2onP7ZSHPg6Pmf1%2F1631566208570?alt=media&token=0aecb31d-0b13-4728-92b0-a119611506c3" alt="">
+      <img width="100px" height="100px" src="https://firebasestorage.googleapis.com/v0/b/superstoreec.appspot.com/o/images%2FLX0ld88IdTSAM2onP7ZSHPg6Pmf1%2F1631566208570?alt=media&token=0aecb31d-0b13-4728-92b0-a119611506c3" alt="">
+      <img width="100px" height="100px" src="https://firebasestorage.googleapis.com/v0/b/superstoreec.appspot.com/o/images%2FLX0ld88IdTSAM2onP7ZSHPg6Pmf1%2F1631566208570?alt=media&token=0aecb31d-0b13-4728-92b0-a119611506c3" alt="">
   </div>
 </div>
 
-<div class="contenedor-datos">
+<div class="contenedor-datos" *ngIf="store$ | async as store">
     <div class="mat-elevation-z8">
-        as
+        <ul>
+            <li *ngFor="let prod of store.products">
+                {{prod | json}}
+            </li>
+        </ul>
     </div>
-</div>
+</div> 
+

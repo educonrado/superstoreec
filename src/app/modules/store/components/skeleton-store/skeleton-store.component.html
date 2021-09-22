@@ -1,12 +1,15 @@
-
-<div *ngIf="store.nameStore">
-  <app-header-store [nameStore]="store.nameStore" [imageStore]="store.imageStore"></app-header-store>
+<div *ngIf="store$ | async as store">
+  <app-header-store
+    [nameStore]="store.nameStore"
+    [imageStore]="store.imageStore"
+  ></app-header-store>
   <div class="container">
     <router-outlet></router-outlet>
   </div>
   <app-footer-store></app-footer-store>
 </div>
 
-<div *ngIf="!store.nameStore">
+<div *ngIf="loading">
   <h1>Cargando...</h1>
 </div>
+<app-skeleton-undefined-store *ngIf="storeUndefined"></app-skeleton-undefined-store>

@@ -12,6 +12,8 @@ import { StoreComponent } from './components/store/store.component';
 import { UndefinedStoreComponent } from './components/undefined-store/undefined-store.component';
 import { PoliticaPrivacidadComponent } from './components/politica-privacidad/politica-privacidad.component';
 import { TerminosServicioComponent } from './components/terminos-servicio/terminos-servicio.component';
+import { SkeletonUndefinedStoreComponent } from './components/skeleton-undefined-store/skeleton-undefined-store.component';
+import { HeaderUndefinedStoreComponent } from './components/header-undefined-store/header-undefined-store.component';
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import { TerminosServicioComponent } from './components/terminos-servicio/termin
     CartStoreComponent,
     UndefinedStoreComponent,
     PoliticaPrivacidadComponent,
-    TerminosServicioComponent
+    TerminosServicioComponent,
+    SkeletonUndefinedStoreComponent,
+    HeaderUndefinedStoreComponent
   ],
   imports: [
     CommonModule,

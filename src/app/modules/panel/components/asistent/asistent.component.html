@@ -14,8 +14,11 @@
             formControlName="nameStore"
             required
             autocomplete="off"
+            #nameStoreTmp
+            maxlength="15"
           />
           <mat-icon matSuffix>business</mat-icon>
+          <mat-hint align="end">{{nameStoreTmp.value.length}} / 15</mat-hint>
           <mat-error
             class="alerta"
             *ngIf="firstFormGroup.controls['nameStore'].hasError('required')"
@@ -28,6 +31,12 @@
           >
             Debe contener al menos 3 caracteres
           </mat-error>
+          <mat-error
+            class="alerta"
+            *ngIf="firstFormGroup.controls['nameStore'].hasError('maxlength')"
+          >
+            El nombre no debe ser mayor a 15 caracteres
+          </mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill" class="full-width">
           <mat-label>Nombre página web</mat-label>
@@ -37,7 +46,7 @@
             formControlName="urlStore"
             required
             autocomplete="off"
-            
+            maxlength="30"
           />
           <mat-hint align="start">https://superstore.web.app/{{firstFormGroup.controls['urlStore'].value}}</mat-hint>
           <mat-icon matSuffix>link</mat-icon>
@@ -74,6 +83,7 @@
             matInput
             placeholder="Descripci&oacute;n"
             formControlName="description"
+            maxlength="200"
           ></textarea>
         </mat-form-field>
         <mat-form-field appearance="fill" class="full-width">

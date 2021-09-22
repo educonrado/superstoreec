@@ -128,7 +128,7 @@ export class AsistentComponent implements OnInit {
 
   private createForm(): void {
     this.firstFormGroup = this.formBuilder.group({
-      nameStore: [null, [Validators.required, Validators.minLength(3)]],
+      nameStore: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
       urlStore: [
         null,
         {

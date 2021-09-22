@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { StoreVerifiedService } from '@core/services/store-verified/store-verified.service';
+import { Store } from '@data/model/store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-store',
@@ -7,9 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StoreComponent implements OnInit {
 
-  constructor() { }
+  store$!: Observable<Store>;
+  constructor(private storeVerifiedService: StoreVerifiedService ) { }
 
   ngOnInit(): void {
+    this.storeVerifiedService.getStore('edu');
+    this.store$ = this.storeVerifiedService.loadStoreObservable;
   }
 
 }

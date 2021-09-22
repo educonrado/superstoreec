@@ -11,7 +11,9 @@ import { Observable } from 'rxjs';
 })
 export class SkeletonStoreComponent implements OnInit {
   private nameStore: string = '';
-  store: Store = {};
+  store$!: Observable<Store>;
+  storeUndefined = false;
+  loading = true;
   constructor(
     private storeVerifiedService: StoreVerifiedService,
     private activatedRoute: ActivatedRoute,
@@ -21,20 +23,15 @@ export class SkeletonStoreComponent implements OnInit {
   ngOnInit(): void {
     this.nameStore = this.activatedRoute.snapshot.params.id;
     if (this.nameStore !== undefined) {
-      this.storeVerifiedService.getStore(this.nameStore).then();
-
-      /**
-       * .then((res) => {
-        res.subscribe((store) => {
-          if (store.exists) {
-            this.store = store.data() as Store;
-          } else {
-            // TODO revisar
-            this.router.navigate([':id/empty'])
-          }
-        });
+      this.storeVerifiedService.getStore(this.nameStore);
+      this.store$ = this.storeVerifiedService.loadStoreObservable;
+      this.store$.subscribe((store) => {
+        if (store === undefined) {
+          this.storeUndefined = true;
+          this.router.navigate(['empty'], { relativeTo: this.activatedRoute });
+        }
+        this.loading = false;
       });
-       */
     }
   }
 }
