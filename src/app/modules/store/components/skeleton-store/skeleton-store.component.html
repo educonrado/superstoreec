@@ -9,7 +9,7 @@
   <app-footer-store></app-footer-store>
 </div>
 
-<div *ngIf="loading">
-  <h1>Cargando...</h1>
+<div *ngIf="loading" class="center--content">
+  <app-spinner></app-spinner>
 </div>
 <app-skeleton-undefined-store *ngIf="storeUndefined"></app-skeleton-undefined-store>

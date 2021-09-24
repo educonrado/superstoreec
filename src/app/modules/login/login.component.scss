@@ -21,23 +21,102 @@
     }
   }
 }
-.btn-google,
-.btn-microsoft,
-.btn-facebook {
-  width: 100%;
-  color: #fff;
-  border-radius: 5px;
+
+hr.divider {
+    margin-bottom: 5px;
+    padding: 0;
+    overflow: visible;
+    border: none;
+    border-top: 1px solid #e0e0e0;
+    color: #6e6d7a;
+    text-align: center;
 }
-.btn-google {
-  background-color: #dd4b36;
+.divider {
+    border-top: 1px solid #dbdbde;
+    margin: 0 10%;
 }
-.btn-microsoft {
-  color: #000;
+hr {
+    display: block;
+    unicode-bidi: isolate;
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+    overflow: hidden;
+    border-style: inset;
+    border-width: 1px;
 }
 
-.btn-facebook {
-  background-color: #3b5998;
+hr.divider:after {
+    content: 'O';
+    display: inline-block;
+    position: relative;
+    top: -7px;
+    padding: 0 16px;
+    background: #fff;
+    font: normal 14px/14px "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
+.container--social{
+  .y3zKF:not(.yWX7d), a.y3zKF:not(.yWX7d), a.y3zKF:not(.yWX7d):visited {
+    border: 1px solid transparent;
+    background-color: #0095f6;
+    background-color: rgba(var(--d69,0,149,246),1);
+  }
+  .L3NKy, a.L3NKy, a.L3NKy:visited {
+    border-radius: 4px;
+    color: #fff;
+    color: rgba(var(--eca,255,255,255),1);
+    position: relative;
+  }
+  .sqdOP, .btn--google {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: 0 0;
+    border: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    font-weight: 600;
+    padding: 5px 9px;
+    text-align: center;
+    text-transform: inherit;
+    text-overflow: ellipsis;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    min-width: 100%;
+    margin: 2px 0px;
+  }
+
+    .cneKx {
+      top: 2px;
+      display: inline-block;
+      margin-right: 8px;
+      position: relative;
+      top: 3px;
+
+    }
+    .coreSpriteFacebookIcon, .coreSpriteFacebookIconInverted {
+      height: 16px;
+      width: 16px;
+    }
+
+  .card--google {
+    border: 1px solid transparent;
+  }
+
+  .btn--google {
+    border-radius: 4px;
+    color: #000;
+    border: solid 1px #0095f6;
+    position: relative;
+  }
+}
+
 .links {
-  margin: 10px 0 20px;
+  margin: 20px;
 }
