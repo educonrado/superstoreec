@@ -10,12 +10,15 @@ import { Observable } from 'rxjs';
 })
 export class StoreComponent implements OnInit {
 
-  store$!: Observable<Store>;
-  constructor(private storeVerifiedService: StoreVerifiedService ) { }
+
+  products$!: Observable<any>;
+  constructor(private storeVerifiedService: StoreVerifiedService) { }
 
   ngOnInit(): void {
-    this.storeVerifiedService.getStore('edu');
-    this.store$ = this.storeVerifiedService.loadStoreObservable;
+    this.products$ = this.storeVerifiedService.storeProducts$;
   }
 
+  clickProduct(id: number): void {
+    console.log('producto:' + id);
+  }
 }
