@@ -41,7 +41,7 @@
         <hr class="divider">
         <div class="container--social">
           <div class="card--google">
-            <button class="btn--google">
+            <button class="btn--google" (click)="loginGoogle()">
               <svg xmlns="http://www.w3.org/2000/svg" class="coreSpriteFacebookIconInverted cneKx" viewBox="0 0 256 262"
                 preserveAspectRatio="xMidYMid">
                 <path
@@ -59,8 +59,10 @@
               Iniciar sesión con Google
             </button>
           </div>
-          <div class="Igw0E IwRSH eGOV_ _4EzTm bkEs3 CovQj jKUp7 DhRcB ">
-            <button class="sqdOP L3NKy y3zKF">
+          <div class="Igw0E IwRSH eGOV_ _4EzTm bkEs3 CovQj jKUp7 DhRcB " matTooltip="Inicio de sesión en construcción"
+        matTooltipClass="tooltip-red"
+        aria-label="Button that shows a red tooltip">
+            <button class="sqdOP L3NKy y3zKF" (click)="loginFacebook()" >
               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
                 id="Layer_1" x="0px" y="0px" viewBox="0 0 408.788 408.788" class="coreSpriteFacebookIconInverted cneKx"
                 style="enable-background:new 0 0 408.788 408.788;" xml:space="preserve">
@@ -80,18 +82,4 @@
     </form>
   </div>
 </div>
-<mat-card class="login-card">
-  <mat-card-content>
-
-    <button class="btn btn-lg btn-google" (click)="loginGoogle()">
-      Google
-    </button>
-    <button class="btn btn-lg btn-microsoft" (click)="loginMicrosoft()">
-      Microsoft
-    </button>
-    <button class="btn btn-lg btn-facebook" (click)="loginFacebook()">
-      Facebook
-    </button>
-  </mat-card-content>
-</mat-card>
 <app-spinner [showSpinner]="showSpinner"></app-spinner>
