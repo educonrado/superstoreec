@@ -24,6 +24,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatBadgeModule } from '@angular/material/badge';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+import { MatRippleModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [],
@@ -57,6 +59,8 @@ import { MatBadgeModule } from '@angular/material/badge';
     MatTooltipModule,
     MatCheckboxModule,
     MatBadgeModule,
+    ClipboardModule,
+    MatRippleModule,
   ],
   exports: [
     MatToolbarModule,
@@ -87,6 +91,8 @@ import { MatBadgeModule } from '@angular/material/badge';
     MatTooltipModule,
     MatCheckboxModule,
     MatBadgeModule,
+    ClipboardModule,
+    MatRippleModule,
   ],
 })
 export class MaterialModule {}

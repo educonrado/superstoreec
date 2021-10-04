@@ -15,6 +15,7 @@ import { TerminosServicioComponent } from './components/terminos-servicio/termin
 import { SkeletonUndefinedStoreComponent } from './components/skeleton-undefined-store/skeleton-undefined-store.component';
 import { HeaderUndefinedStoreComponent } from './components/header-undefined-store/header-undefined-store.component';
 import { ProductStoreComponent } from './components/product-store/product-store.component';
+import { ProductStoreDetailsComponent } from './components/product-store-details/product-store-details.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { ProductStoreComponent } from './components/product-store/product-store.
     TerminosServicioComponent,
     SkeletonUndefinedStoreComponent,
     HeaderUndefinedStoreComponent,
-    ProductStoreComponent
+    ProductStoreComponent,
+    ProductStoreDetailsComponent
   ],
   imports: [
     CommonModule,

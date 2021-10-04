@@ -63,6 +63,9 @@ export class ProfileComponent implements OnInit {
     this.router.navigate([Appsettings.RUTA_ADMIN]);
   }
 
+  /**
+   * TODO Implementar control en cambio de nombre de página
+   */
   onSubmit(): void {
     if (this.profileForm.valid) {
       if (this.tmpUrlStore === this.profileForm.controls['urlStore'].value) {
@@ -74,6 +77,7 @@ export class ProfileComponent implements OnInit {
         this.redirectTo();
       } else {
         console.log('Diferente');
+        this.updateProfile();
       }
     }
   }

@@ -5,7 +5,7 @@ export class Appsettings {
   public static MESSAGE_DELETE = 'El producto fue eliminado correctamente';
   public static MESSAGE_PRODUCT = 'Producto';
   public static MESSAGE_PRODUCT_DELETE = '¿Eliminar producto?';
-  public static MESSAGE_PUBLISH_STORE = 'Todo listo 👌';
+  public static MESSAGE_PUBLISH_STORE = 'Todo listo 👌\n Tu tienda fue publicada correctamente.';
   public static MESSAGE_ERROR_LOGIN = 'Usuario y/o contraseña incorrectos.';
   public static MESSAGE_ERROR_NETWORK = 'Verifique su conexión a internet e vuelva a internar.';
   public static MESSAGE_ERROR_POPUP_CLOSE = 'No se pudo validar su cuenta de Google por un cierre inesperado del pop-up. \nIntente nuevamente.';

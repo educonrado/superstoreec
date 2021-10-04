@@ -1,26 +1,19 @@
+<h2 mat-dialog-title>Confirmación</h2>
 <mat-dialog-content class="mat-typography">
-  <mat-card class="example-card">
-    <mat-card-header>
-      <img
-        *ngIf="data.imageStore"
-        mat-card-avatar
-        [src]="data.imageStore"
-        alt="Logo"
-        class="store-header-image"
-        loading="lazy"
-      />
-      <mat-card-title>{{ data.nameStore }}</mat-card-title>
-      <mat-card-subtitle
-        matTooltip="Url inactiva mientras no se publique la tienda"
-        ><a [href]="data.urStore" target="_blanck">{{
-          data.urStore
-        }}</a></mat-card-subtitle
-      >
-    </mat-card-header>
-  </mat-card>
+  <p>
+    Publicar y/o actualizar <strong>"{{ data.nameStore }}"</strong> store?
+  </p>
+  <p [cdkCopyToClipboard]="data.urlStore" matRipple>
+    <small>
+      Copiar url de tienda
+      <mat-icon matTooltip="Copiar url de tu nueva tienda" class="icon-small"
+        >content_copy</mat-icon
+      ></small
+    >
+  </p>
 </mat-dialog-content>
 <mat-dialog-actions align="center">
-  <button mat-raised-button color="secondary" (click)="onNoClick()">
+  <button mat-raised-button color="secondary" mat-dialog-close>
     {{ data.btn1 }}
   </button>
   <button

@@ -11,7 +11,6 @@ import { DialogPublishComponent } from '@shared/components/dialog-publish/dialog
 import { DialogComponent } from '@shared/components/dialog/dialog.component';
 import { NotificationComponent } from '@shared/components/notification/notification.component';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-products',
@@ -35,7 +34,6 @@ export class ProductsComponent implements OnInit {
     private storeVerifiedService: StoreVerifiedService
   ) {
     this.validateStore();
-    
   }
 
   ngOnInit(): void {}
@@ -79,7 +77,7 @@ export class ProductsComponent implements OnInit {
       data: {
         title: Appsettings.MESSAGE_PUBLISH_STORE,
         nameStore: this.storeService.tienda.nameStore,
-        urStore:
+        urlStore:
           Appsettings.PATH_TIENDA_VERIFIED + this.storeService.tienda.urlStore,
         imageStore: this.storeService.tienda.imageStore,
         description: this.storeService.tienda.description,
@@ -90,7 +88,12 @@ export class ProductsComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.createStoreVerified();
-        this.storeService.updateStore(this.uid, StateType.PUBLISHED).then().catch((err)=>console.log(err));
+        this.storeService
+          .updateStore(this.uid, StateType.PUBLISHED)
+          .then(() => {
+            this.notification(Appsettings.MESSAGE_PUBLISH_STORE);
+          })
+          .catch((err) => console.log(err));
       } else {
         this.showSpinner = false;
       }
@@ -99,7 +102,7 @@ export class ProductsComponent implements OnInit {
   private async createStoreVerified(): Promise<void> {
     const store = this.storeService.tienda;
     console.log(store.memberType);
-    
+
     this.storeVerified.nameStore = store.nameStore;
     this.storeVerified.urlStore = store.urlStore;
     this.storeVerified.imageStore = store.imageStore;
@@ -108,7 +111,7 @@ export class ProductsComponent implements OnInit {
     // this.storeVerified.socialNetwork = store.socialNetwork;
     this.storeVerified.category = store.category;
     this.storeVerified.state = StateType.PUBLISHED;
-    
+
     const prods = this.storeService.products;
     prods.subscribe((prods) => {
       this.storeVerified.products = prods;
