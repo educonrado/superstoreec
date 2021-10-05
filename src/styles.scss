@@ -209,3 +209,18 @@ $dark-text:   #5f6982;
   justify-content: center;
   align-items: center;
 }
+
+
+.my-class .mat-dialog-container{
+  width: auto;
+  border-radius: none;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden;
+}
+
+@media (min-width: 600px) {
+  .my-class .mat-dialog-container{
+    width: 400px;
+  }
+}

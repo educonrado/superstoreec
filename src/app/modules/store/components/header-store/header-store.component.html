@@ -1,17 +1,18 @@
 <mat-toolbar class="display-flex-header color--resaltar">
   <div class="card--header">
     <div class="circular--landscape">
-      <img class="img-store" [src]="image$ | async" alt="Logo"/>
+      <img class="img-store" [src]="image$ | async" alt="Logo" />
     </div>
-    <h1 class="title--store">{{ nameStore }}<sub>Store</sub> </h1>
+    <h1 class="title--store">{{ nameStore }}<sub>Store</sub></h1>
   </div>
   <div class="card--button">
     <button
-    mat-icon-button
-    aria-label="Botón de carrito de compras con icono cart"
-  >
-    <mat-icon [matBadge]="0" matBadgeColor="accent" matBadgeOverlap="true">shopping_cart</mat-icon>
-  </button>
+      mat-icon-button
+      aria-label="Botón de carrito de compras con icono cart"
+    >
+      <mat-icon [matBadge]="total$ | async" matBadgeColor="accent" matBadgeOverlap="true"
+        >shopping_cart</mat-icon
+      >
+    </button>
   </div>
-
 </mat-toolbar>

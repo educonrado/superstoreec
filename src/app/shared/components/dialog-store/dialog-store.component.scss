@@ -1,0 +1,25 @@
+h4 {
+    text-decoration: double;
+}
+h5 {
+  border-bottom: solid 2px #ff4081;
+  width: fit-content;
+}
+.text-align-center {
+  text-align: center;
+}
+
+.label--price {
+  display: flex;
+  justify-content: center;
+}
+
+p{
+    max-height: 5rem;
+    overflow-y: auto;
+}
+
+.mat-dialog-actions {
+    margin-bottom: 10px;
+}
+

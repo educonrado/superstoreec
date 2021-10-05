@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { interval, Observable } from 'rxjs';
-import { delay, tap } from 'rxjs/operators';
+import { CartService } from '@core/services/cart/cart.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header-store',
@@ -14,8 +15,12 @@ export class HeaderStoreComponent implements OnInit {
   @Input()
   imageStore: string | undefined = '';
   image$: any;
+  total$!: Observable<number>;
 
-  constructor() { }
+  constructor(private cartService: CartService) { 
+    this.total$ = this.cartService.cart$
+      .pipe(map((products) => products.length));
+  }
 
   ngOnInit(): void {
     // TODO Carga asincrona de imagen

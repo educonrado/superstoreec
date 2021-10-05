@@ -1,0 +1,15 @@
+<mat-dialog-content class="mat-typography">
+  <img mat-card-image [src]="data.image" [alt]="data.title" />
+  <div class="text-align-center">
+    <h4 mat-dialog-title>{{ data.title }}</h4>
+    <div class="label--price">
+      <h5>{{ data.price | currency }}</h5>
+    </div>
+    <p class="scrolable">
+      <small> {{ data.description }} </small>
+    </p>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button mat-raised-button color="accent" [mat-dialog-close]="true" cdkFocusInitial>Agregar al carrito</button>
+</mat-dialog-actions>

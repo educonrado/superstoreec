@@ -7,6 +7,7 @@ import { MaterialModule } from '@modules/material/material.module';
 
 import * as fromComponents from './components';
 import { DialogPublishComponent } from './components/dialog-publish/dialog-publish.component';
+import { DialogStoreComponent } from './components/dialog-store/dialog-store.component';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { DialogPublishComponent } from './components/dialog-publish/dialog-publi
   ],
   declarations: [
     ...fromComponents.components,
-    DialogPublishComponent
+    DialogPublishComponent,
+    DialogStoreComponent
   ],
   exports: [
     FormsModule,
