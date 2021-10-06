@@ -1,14 +1,30 @@
-<mat-card (click)="detailsProduct()" class="card--product">
-  <div class="crop-image">
-    <img mat-card-image [src]="product.image" [alt]="product.title">
+<mat-card class="card--product">
+  <div class="crop-image" (click)="detailsProduct()">
+    <img
+      mat-card-image
+      class="image"
+      [src]="product.image"
+      [alt]="product.title"
+    />
+    <div class="middle">
+      <div class="text">
+        <small> {{ product.description }} </small>
+      </div>
+    </div>
   </div>
   <div class="card--cotenedor--product">
-    <div class="card--text">
+    <div class="card--text" (click)="detailsProduct()">
       <mat-card-title>{{ product.title }}</mat-card-title>
-      <mat-card-subtitle>{{ product.price | currency}}</mat-card-subtitle>
+      <mat-card-subtitle>{{ product.price | currency }}</mat-card-subtitle>
     </div>
     <div class="card--btns">
-      <button class="btn--float" mat-mini-fab color="accent" (click)="addCart()" aria-label="Agregar al carrito de compras">
+      <button
+        class="btn--float"
+        mat-mini-fab
+        color="accent"
+        (click)="addCart()"
+        aria-label="Agregar al carrito de compras"
+      >
         <mat-icon>shopping_cart</mat-icon>
       </button>
     </div>

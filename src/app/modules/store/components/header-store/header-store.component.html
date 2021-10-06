@@ -7,8 +7,8 @@
   </div>
   <div class="card--button">
     <button
-      mat-icon-button
-      aria-label="Botón de carrito de compras con icono cart"
+      mat-icon-button routerLink="cart"
+      aria-label="Botón de carrito de compras con icono cart" matTooltip="Carrito de compras"
     >
       <mat-icon [matBadge]="total$ | async" matBadgeColor="accent" matBadgeOverlap="true"
         >shopping_cart</mat-icon

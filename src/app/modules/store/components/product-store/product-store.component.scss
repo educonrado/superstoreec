@@ -1,23 +1,63 @@
 .crop-image {
-    height: 300px;
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-    img{
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        max-width: 100%;
-    }
+  height: 300px;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+  }
 }
 
 .card--cotenedor--product {
-    display: flex;
-    justify-content: space-between;
-    margin: 1rem 0;
-    padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0;
+  padding: 0 1rem;
 }
 .card--product {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+.middle {
+  display: none;
+}
+
+@media screen and (min-width: 701px) {
+  .middle {
+    display: block;
+    transition: 0.5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+  }
+  .image {
+    opacity: 1;
+    transition: 0.5s ease;
+    backface-visibility: hidden;
+  }
+
+  .crop-image:hover .image {
+    opacity: 0.3;
+  }
+
+  .crop-image:hover .middle {
+    opacity: 1;
+  }
+
+  .text {
+    text-align: center;
+    max-height: 75px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #111;
+    font-size: 16px;
+    padding: 10px;
+  }
 }

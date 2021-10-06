@@ -3,9 +3,13 @@
     <span>SuperStore</span>
   </a>
   <span class="header-spacer"></span>
-  <a aria-label="Login">
-    <a mat-icon-button routerLink="user/login">
-      <mat-icon>account_circle</mat-icon>
-    </a>
+  <a
+    mat-icon-button
+    routerLink="user/login"
+    aria-label="Iniciar sesión"
+    aria-hidden="true"
+    matTooltip="Iniciar sesión"
+  >
+    <mat-icon>account_circle</mat-icon>
   </a>
 </mat-toolbar>

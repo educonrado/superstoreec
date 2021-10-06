@@ -29,6 +29,7 @@ export class ProductStoreComponent {
     console.log('Agregar al carrito');
     // this.productClicked.emit(this.producto.id);
     this.cartService.addCart(this.product);
+    this.notification(Appsettings.MESSAGE_PRODUCT_CART);
   }
 
   detailsProduct(): void {
@@ -45,7 +46,6 @@ export class ProductStoreComponent {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.addCart();
-        this.notification(Appsettings.MESSAGE_PRODUCT_CART);
       }
     });
   }

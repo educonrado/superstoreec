@@ -71,28 +71,31 @@
                   </div>
                   <div class="lbl-facebook">Registrar con <b>Facebook</b></div>
                 </div>
-                
               </a>
             </div>
           </div>
         </mat-card-content>
         <mat-card-actions class="botones">
           <button
-          mat-raised-button
-          type="submit"
-          color="primary"
-          name="Registrar"
-          aria-label="Registrar"
+            mat-raised-button
+            type="submit"
+            color="primary"
+            name="Registrar"
+            aria-label="Registrar"
           >
-          Registrar
-        </button>
-      </mat-card-actions>
-    </mat-card>
-    <div class="links">
-    <small>¿Ya tienes una cuenta? <a  routerLink="/user/login"> Iniciar sesi&oacute;n </a></small>
-    
-  </div>
-  </form>
+            Registrar
+          </button>
+        </mat-card-actions>
+        <div class="links">
+          <p>
+            <small
+              >¿Ya tienes una cuenta?
+              <a routerLink="/user/login"> Iniciar sesi&oacute;n </a></small
+            >
+          </p>
+        </div>
+      </mat-card>
+    </form>
   </div>
 </div>
 <app-spinner [showSpinner]="showSpinner"></app-spinner>
