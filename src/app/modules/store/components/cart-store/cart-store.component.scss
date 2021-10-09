@@ -1,0 +1,40 @@
+.products-cart-table {
+  width: 98%;
+  margin: 1%;
+}
+
+tr.mat-footer-row {
+  font-weight: bold;
+}
+
+.card-product-cart {
+  margin: 1rem;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .cart-icon {
+    font-size: 60px;
+    margin: 1rem;
+    color: #ff4081;
+  }
+  span {
+    margin: 1rem;
+  }
+  button {
+    margin: 1rem;
+  }
+}
+.card-product-btn {
+  display: flex;
+  justify-content: center;
+  button {
+    width: 100%;
+    margin: 0 2rem;
+  }
+}
+.ancho-fijo-columna {
+  width: 5%;
+  text-align: center;
+}
+

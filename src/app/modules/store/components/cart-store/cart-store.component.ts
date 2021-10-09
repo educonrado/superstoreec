@@ -10,21 +10,39 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./cart-store.component.scss'],
 })
 export class CartStoreComponent implements OnInit {
-  products$!: Observable<Product[]>;
-  constructor(private cartService: CartService) {
-    //this.products$ = this.cartService.cart$;
-    
-  }
+  productsCart$!: Observable<Product[]>;
+  displayedColumns = [
+    'nro',
+    'producto',
+    'precio',
+    'cantidad',
+    'total',
+    'actions',
+  ];
+  ps: Product[] = [];
+  emptyCart = true;
+  /**
+   *
+   * @param cartService
+   */
+  constructor(private cartService: CartService) {}
 
   ngOnInit(): void {
-    this.cartService.cart$
-      .pipe(
-        map((products) => {
-          products.forEach((product: Product) => {
-            console.log(product);
-          });
-        })
-      )
-      .subscribe();
+    this.productsCart$ = this.cartService.cart$;
+  }
+
+  /**
+   *
+   * @param index
+   */
+  public confirmationDelete(index: number): void {
+    this.cartService.delete(index);
+  }
+
+  public getTotalCost(): any {
+    this.productsCart$.subscribe(p => {
+      this.ps = p;
+    });
+    return this.ps.map((t) => t.price).reduce((acc, value) => acc + value, 0);
   }
 }
