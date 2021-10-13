@@ -12,7 +12,6 @@ import { map } from 'rxjs/operators';
 export class CartStoreComponent implements OnInit {
   productsCart$!: Observable<Product[]>;
   displayedColumns = [
-    'nro',
     'producto',
     'precio',
     'cantidad',
@@ -21,6 +20,7 @@ export class CartStoreComponent implements OnInit {
   ];
   ps: Product[] = [];
   emptyCart = true;
+  cantidad = 1;
   /**
    *
    * @param cartService
@@ -44,5 +44,15 @@ export class CartStoreComponent implements OnInit {
       this.ps = p;
     });
     return this.ps.map((t) => t.price).reduce((acc, value) => acc + value, 0);
+  }
+
+  addItem(): void {
+    console.log('Agregando ítem al carrito');
+    this.cantidad += 1;
+  }
+  
+  removeItem(): void {
+    console.log('Removiendo ítem al carrito');
+    this.cantidad -= 1;
   }
 }
