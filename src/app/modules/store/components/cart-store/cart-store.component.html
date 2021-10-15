@@ -12,10 +12,14 @@
         <td mat-cell *matCellDef="let element">{{ element.title }}</td>
         <td mat-footer-cell *matFooterCellDef></td>
       </ng-container>
-      
+
       <ng-container matColumnDef="precio">
-        <th mat-header-cell *matHeaderCellDef class="col-tmp">Precio unitario</th>
-        <td mat-cell *matCellDef="let element" class="col-tmp">{{ element.price | currency }}</td>
+        <th mat-header-cell *matHeaderCellDef class="col-tmp">
+          Precio unitario
+        </th>
+        <td mat-cell *matCellDef="let element" class="col-tmp">
+          {{ element.price | currency }}
+        </td>
         <td mat-footer-cell *matFooterCellDef class="col-tmp"></td>
       </ng-container>
 
@@ -76,7 +80,9 @@
       <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
     </table>
     <div *ngIf="products.length > 0" class="card-product-btn">
-      <button mat-raised-button color="accent">Comprar</button>
+      <button mat-raised-button color="accent" (click)="comprar('finish')" fragment="finish">
+        Comprar
+      </button>
     </div>
     <div *ngIf="products.length === 0" class="card-product-cart">
       <mat-icon class="cart-icon">production_quantity_limits</mat-icon>
@@ -87,5 +93,82 @@
         Seguir comprando
       </button>
     </div>
+  </div>
+  <mat-divider></mat-divider>
+  <div id="finish">
+    <form [formGroup]="formBuy" novalidate (ngSubmit)="onSubmit()">
+      <mat-card class="card-buy">
+        <mat-card-header>
+          <mat-card-title>Informaci&oacute;n para compra</mat-card-title>
+          <mat-card-subtitle>La informaci&oacute;n de tu carrito se enviar&aacute; mediante Whatsapp a la tienda</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input
+                  matInput
+                  placeholder="Nombre"
+                  formControlName="buyerName"
+                  required
+                  maxlength="15"
+                  autocomplete="off"
+                  
+                />
+                <mat-icon matSuffix>account_circle</mat-icon>
+                <mat-error
+                  class="alerta"
+                  *ngIf="formBuy.controls['buyerName'].hasError('required')"
+                >
+                  Campo requerido
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input
+                  matInput
+                  placeholder="Tel&eacute;fono"
+                  formControlName="buyerPhone"
+                  required
+                  type="phone"
+                  maxlength="15"
+                  autocomplete="off"
+                />
+                <mat-icon matSuffix>phone</mat-icon>
+                <mat-error
+                  class="alerta"
+                  *ngIf="formBuy.controls['buyerPhone'].hasError('required')"
+                >
+                  Campo requerido
+                </mat-error>
+                <mat-error
+                  class="alerta"
+                  *ngIf="
+                    formBuy.controls['buyerPhone'].hasError('pattern') ||
+                    formBuy.controls['buyerPhone'].hasError('minlength')
+                  "
+                >
+                  Ingrese un número de teléfono válido. Recuerde incluir el
+                  código de país.
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-card-content>
+        <mat-card-actions class="card-product-btn sbt">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="this.formBuy.invalid"
+          >
+            Finalizar compra
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
   </div>
 </div>

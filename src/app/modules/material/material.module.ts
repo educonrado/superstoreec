@@ -26,6 +26,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatBadgeModule } from '@angular/material/badge';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatRippleModule } from '@angular/material/core';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [],
@@ -61,6 +62,7 @@ import { MatRippleModule } from '@angular/material/core';
     MatBadgeModule,
     ClipboardModule,
     MatRippleModule,
+    MatDividerModule,
   ],
   exports: [
     MatToolbarModule,
@@ -93,6 +95,7 @@ import { MatRippleModule } from '@angular/material/core';
     MatBadgeModule,
     ClipboardModule,
     MatRippleModule,
+    MatDividerModule,
   ],
 })
 export class MaterialModule {}

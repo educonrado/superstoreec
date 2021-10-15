@@ -66,5 +66,26 @@ tr.mat-footer-row {
   }
 }
 
+.card-buy {
+  min-width: 120px;
+  margin: 20px auto;
+}
 
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.col {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.col:last-child {
+  margin-right: 0;
+}
+
+.sbt {
+  margin: 0 1rem;
+}
 
