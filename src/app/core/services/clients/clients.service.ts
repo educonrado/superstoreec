@@ -22,15 +22,13 @@ export class ClientsService {
     }
 
   getClient(id: string)  {
-    
-   
-    
     /*return this.firebaseService.col$(
       Appsettings.PATH_CLIENTS,
       (queryFn: { where: (arg0: string, arg1: string, arg2: string) => any }) =>
         queryFn.where('uid', '==', id)
     );*/
   }
+  
   getAllClients(): Observable<Store[]> {
     return this.clientsRef.snapshotChanges().pipe(
       map((clients) =>

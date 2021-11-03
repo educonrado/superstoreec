@@ -80,15 +80,24 @@
       <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
     </table>
     <div *ngIf="products.length > 0" class="card-product-btn">
-      <button mat-raised-button color="accent" (click)="comprar('finish')" fragment="finish">
+      <button
+        mat-raised-button
+        color="accent"
+        (click)="comprar('finish')"
+        fragment="finish"
+      >
         Comprar
       </button>
     </div>
     <div *ngIf="products.length === 0" class="card-product-cart">
-      <mat-icon class="cart-icon">production_quantity_limits</mat-icon>
-      <span>¡Carrito vac&iacute;o!</span>
+      <div class="card-center">
+        <mat-icon class="cart-icon">production_quantity_limits</mat-icon>
+      </div>
+      <div class="card-center">
+        <span>¡Carrito vac&iacute;o!</span>
+      </div>
     </div>
-    <div class="card-product-cart">
+    <div class="card-center card-product-cart">
       <button mat-raised-button color="primary" routerLink="..">
         Seguir comprando
       </button>
@@ -96,11 +105,14 @@
   </div>
   <mat-divider></mat-divider>
   <div id="finish">
-    <form [formGroup]="formBuy" novalidate (ngSubmit)="onSubmit()">
+    <form [formGroup]="formBuy" novalidate (ngSubmit)="onSubmit($event)">
       <mat-card class="card-buy">
         <mat-card-header>
           <mat-card-title>Informaci&oacute;n para compra</mat-card-title>
-          <mat-card-subtitle>La informaci&oacute;n de tu carrito se enviar&aacute; mediante Whatsapp a la tienda</mat-card-subtitle>
+          <mat-card-subtitle
+            >La informaci&oacute;n de tu carrito se enviar&aacute; mediante
+            Whatsapp a la tienda</mat-card-subtitle
+          >
         </mat-card-header>
         <mat-card-content>
           <div class="row">
@@ -113,7 +125,6 @@
                   required
                   maxlength="15"
                   autocomplete="off"
-                  
                 />
                 <mat-icon matSuffix>account_circle</mat-icon>
                 <mat-error

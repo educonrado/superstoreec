@@ -9,17 +9,10 @@ tr.mat-footer-row {
 
 .card-product-cart {
   margin: 1rem;
-  padding: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   .cart-icon {
-    font-size: 60px;
+    font-size: xx-large;
     margin: 1rem;
     color: #ff4081;
-  }
-  span {
-    margin: 1rem;
   }
   button {
     margin: 1rem;
@@ -37,7 +30,7 @@ tr.mat-footer-row {
 
 .ancho-fijo-columna {
   text-align: center;
-  width:5%;
+  width: 5%;
 }
 
 .text-center {
@@ -89,3 +82,6 @@ tr.mat-footer-row {
   margin: 0 1rem;
 }
 
+.card-center {
+  text-align: center;
+}
