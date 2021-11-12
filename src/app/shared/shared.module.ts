@@ -8,6 +8,7 @@ import { MaterialModule } from '@modules/material/material.module';
 import * as fromComponents from './components';
 import { DialogPublishComponent } from './components/dialog-publish/dialog-publish.component';
 import { DialogStoreComponent } from './components/dialog-store/dialog-store.component';
+import { TruncatePipe } from './util/truncate.pipe';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { DialogStoreComponent } from './components/dialog-store/dialog-store.com
   declarations: [
     ...fromComponents.components,
     DialogPublishComponent,
-    DialogStoreComponent
+    DialogStoreComponent,
+    TruncatePipe
   ],
   exports: [
     FormsModule,
