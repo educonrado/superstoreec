@@ -1,5 +1,6 @@
 <div class="contenedor-datos">
   <h1>Carrito de compras</h1>
+{{ prodGroup | json }}
   <div class="mat-elevation-z8" *ngIf="productsCart$ | async as products">
     <table
       mat-table
