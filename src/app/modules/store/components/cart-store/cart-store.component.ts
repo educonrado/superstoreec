@@ -7,7 +7,7 @@ import { Appsettings } from '@data/constants/appsettings';
 import { Product } from '@data/model/product';
 import { Store } from '@data/model/store';
 import { Order } from '@modules/data/order';
-import { Observable } from 'rxjs';
+import { Observable, pipe } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -31,6 +31,7 @@ export class CartStoreComponent implements OnInit {
     purchaseDate: new Date(),
   };
   smsClient: string | undefined;
+  prodGroup!: Order[];
   /**
    *
    * @param cartService
@@ -47,6 +48,17 @@ export class CartStoreComponent implements OnInit {
 
   ngOnInit(): void {
     this.productsCart$ = this.cartService.cart$;
+    this.productsCart$.subscribe((p)=>{
+      this.ps = p;
+    });
+
+    this.prodGroup = this.ps.reduce(function (r, a) {
+        r[a.title] = r[a.title] || [];
+        r[a.title].push(a);
+        return r;
+    }, Object.create(null));
+
+console.log(this.prodGroup);
   }
 
   /**
@@ -58,13 +70,12 @@ export class CartStoreComponent implements OnInit {
   }
 
   public getTotalCost(): any {
-    this.productsCart$.subscribe((p) => {
+    /*this.productsCart$.subscribe((p) => {
       this.ps = p;
-    });
+    });*/
     const res = this.ps
       .map((t) => t.price)
       .reduce((acc, value) => acc + value, 0);
-    //var group = _.mapValues()
     return res;
   }
 
@@ -101,7 +112,7 @@ export class CartStoreComponent implements OnInit {
             console.log('orden creada correctamente');
             var url = Appsettings.MESSAGE_WHATSAPP_SEND;
            console.log(url);
-           
+
             window.open(url,'_blank')
           });
         }
