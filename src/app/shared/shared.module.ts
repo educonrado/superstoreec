@@ -30,6 +30,7 @@ import { TruncatePipe } from './util/truncate.pipe';
     ReactiveFormsModule,
     HttpClientModule,
     CommonModule,
+    TruncatePipe,
     ...fromComponents.components
   ]
 })

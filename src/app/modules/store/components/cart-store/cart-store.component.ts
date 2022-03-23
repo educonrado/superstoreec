@@ -48,17 +48,26 @@ export class CartStoreComponent implements OnInit {
 
   ngOnInit(): void {
     this.productsCart$ = this.cartService.cart$;
-    this.productsCart$.subscribe((p)=>{
+    this.cartService.cart$.subscribe((p)=>{
       this.ps = p;
+      this.prodGroup = this.agruparObjetos(p);      
     });
+  }
 
-    this.prodGroup = this.ps.reduce(function (r, a) {
-        r[a.title] = r[a.title] || [];
-        r[a.title].push(a);
-        return r;
-    }, Object.create(null));
-
-console.log(this.prodGroup);
+  /**
+   * 
+   * @param objectArray 
+   * @returns 
+   */
+  private agruparObjetos(objectArray: any): any {
+    return objectArray.reduce(function (acc:any, obj:any) {
+      var key = obj['id'];
+      if (!acc[key]) {
+        acc[key] = [];
+      }
+      acc[key].push(obj);
+      return acc;
+    }, {});
   }
 
   /**
@@ -69,6 +78,10 @@ console.log(this.prodGroup);
     this.cartService.delete(index);
   }
 
+  /**
+   * 
+   * @returns 
+   */
   public getTotalCost(): any {
     /*this.productsCart$.subscribe((p) => {
       this.ps = p;
@@ -91,6 +104,10 @@ console.log(this.prodGroup);
     this.cantidad -= 1;
   }
 
+  /**
+   * 
+   * @param section 
+   */
   comprar(section: string): void {
     this.compra = false;
     window.location.hash = '';
@@ -128,6 +145,10 @@ console.log(this.prodGroup);
     }
   }
 
+  /**
+   * 
+   * @param buyer 
+   */
   private createOrder(buyer: any) {
     this.order.buyerName = buyer.buyerName;
     this.order.buyerPhone = buyer.buyerPhone;
@@ -135,6 +156,10 @@ console.log(this.prodGroup);
     this.order.purchaseDate = new Date();
   }
 
+  /**
+   * 
+   * @param store 
+   */
   private createStoreLimit(store: Store) {
     this.order.seller.nameStore = store.nameStore;
     this.order.seller.urlStore = store.urlStore;

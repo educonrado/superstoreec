@@ -1,8 +1,17 @@
 <div class="contenedor-datos">
   <h1>Carrito de compras</h1>
-{{ prodGroup | json }}
+  <div>
+    Hola
+    {{ prodGroup.length }}
+  </div>
   <div class="mat-elevation-z8" *ngIf="productsCart$ | async as products">
-    <table
+    <ul>
+      <li *ngFor="let p of prodGroup">
+        {{p |json}}
+      </li>
+
+    </ul>
+    <!--<table
       mat-table
       [dataSource]="products"
       class="products-cart-table"
@@ -79,7 +88,7 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
-    </table>
+    </table>-->
     <div *ngIf="products.length > 0" class="card-product-btn">
       <button
         mat-raised-button
